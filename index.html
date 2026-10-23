@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyriak Launay | Systèmes, Réseaux &amp; Sécurité</title>
+<meta name="description" content="Portfolio de Cyriak Launay, agent de maintenance informatique et étudiant BTS SIO option SISR : systèmes, réseaux et cybersécurité.">
+<meta property="og:title" content="Cyriak Launay | Systèmes, Réseaux &amp; Sécurité">
+<meta property="og:type" content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: une application à pages, une page par thème, barre de navigation flottante façon console d'administration */
+:root{
+  --bg:#010807; --panel:#071513; --panel-2:#0b1f1c; --line:#143832; --fg:#e4eef3; --muted:#8aa3b2;
+  --accent:#2ee6c8; --on-accent:#03201c; --cable:#5b9cff; --up:#4ade80; --warn:#fbbf24; --down:#f87171;
+  --bg2:#03211d; --glow:rgba(46,230,200,.26); --glow2:rgba(20,200,150,.18); --shadow:0 18px 40px -24px rgba(0,0,0,.75);
+  --term:#04090d; --term-fg:#cde3ea; --t-acc:#34e0c0;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#e0f1ed; --panel:#ffffff; --panel-2:#f4f8fa; --line:#c3d3dd; --fg:#0e2230; --muted:#546c7b;
+  --accent:#0b8f7e; --on-accent:#ffffff; --cable:#2556c9; --up:#13804a; --warn:#9a6700; --down:#c0392b;
+  --bg2:#cde8e1; --glow:rgba(11,143,126,.24); --glow2:rgba(20,170,130,.20); --shadow:0 18px 40px -26px rgba(14,34,48,.30);
+  --term:#0f1f29; --term-fg:#d3e2e8; color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#e0f1ed; --panel:#ffffff; --panel-2:#f4f8fa; --line:#c3d3dd; --fg:#0e2230; --muted:#546c7b;
+  --accent:#0b8f7e; --on-accent:#ffffff; --cable:#2556c9; --up:#13804a; --warn:#9a6700; --down:#c0392b;
+  --bg2:#cde8e1; --glow:rgba(11,143,126,.24); --glow2:rgba(20,170,130,.20); --shadow:0 18px 40px -26px rgba(14,34,48,.30);
+  --term:#0f1f29; --term-fg:#d3e2e8; color-scheme:light}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+img{max-width:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.65;
+  min-height:100%}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(1000px 640px at 90% -8%,var(--glow),transparent 66%),radial-gradient(900px 640px at -8% 100%,var(--glow2),transparent 66%),radial-gradient(600px 420px at 40% 55%,color-mix(in srgb,var(--glow) 40%,transparent),transparent 70%),linear-gradient(180deg,var(--bg),var(--bg2))}
+a{color:var(--cable)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+[hidden]{display:none!important}
+
+/* Barre de navigation flottante */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+.dock{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:transparent;padding-block:14px}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 12px 10px 18px;box-shadow:var(--shadow)}
+.brand{font-family:var(--f-mono);font-weight:600;font-size:14px;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.brand .led{flex:none}
+.brand b{color:var(--accent);font-weight:600}
+.tabs{display:flex;gap:4px;order:3;flex-basis:100%;min-width:0;justify-content:center;overflow-x:auto;padding-top:8px;border-top:1px solid var(--line);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tools{margin-left:auto}
+.tab{font-family:var(--f-mono);font-size:13px;color:var(--muted);background:none;border:1px solid transparent;border-radius:9px;padding:8px 12px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px}
+.tab:hover{color:var(--fg);background:var(--panel-2)}
+.tab[aria-current="page"]{color:var(--on-accent);background:var(--accent);font-weight:600}
+.tab-ico{opacity:.7;font-size:11px}
+.tools{display:flex;gap:8px;align-items:center}
+.pill-btn{font-family:var(--f-mono);font-size:12.5px;background:var(--panel-2);border:1px solid var(--line);color:var(--fg);padding:8px 14px;border-radius:9px;cursor:pointer}
+.pill-btn:hover{border-color:var(--accent)}
+@media (max-width:900px){.tabs{justify-content:flex-start}}
+
+
+
+.avatar{display:inline-grid;place-items:center;border-radius:50%;width:84px;height:84px;flex:none;background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 55%,#000));color:var(--on-accent);font-family:var(--f-display);font-weight:800;font-size:34px;letter-spacing:.02em;overflow:hidden;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--accent)}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar.lg{width:124px;height:124px;font-size:48px}
+.id-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.who{display:flex;align-items:center;gap:22px;margin-bottom:26px;padding-bottom:26px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.who b{display:block;font-family:var(--f-display);font-size:34px;text-transform:uppercase;line-height:1;font-weight:800}
+.who span.r{color:var(--muted);font-family:var(--f-mono);font-size:13px}
+
+/* Menus thème et langue */
+.tools{position:relative}
+.pill-btn{display:inline-flex;align-items:center;gap:8px}
+select.pill-btn{appearance:none;-webkit-appearance:none;padding-right:14px;cursor:pointer}
+.menu{position:absolute;right:0;top:calc(100% + 12px);z-index:40;width:260px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow);display:grid;gap:12px}
+.menu-t{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin:0}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.seg button{font-family:var(--f-mono);font-size:12.5px;background:var(--panel-2);border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:8px 6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
+.sw{display:flex;gap:10px}
+.sw button{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw button[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 2px var(--panel) inset}
+@media (max-width:980px){.menu{right:0}}
+
+/* Pages */
+.view{padding-block:34px 70px;animation:enter .35s ease both}
+@keyframes enter{from{transform:translateY(10px)}to{transform:none}}
+.page-head{margin-bottom:34px;display:flex;justify-content:space-between;align-items:end;gap:18px 40px;flex-wrap:wrap}
+.cmd{font-family:var(--f-mono);font-size:13px;color:var(--muted);margin:0 0 8px}
+.cmd b{color:var(--accent);font-weight:500}
+h2{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:clamp(44px,6vw,68px);line-height:.92;margin:0;letter-spacing:.01em;text-wrap:balance}
+.sec-note{max-width:46ch;color:var(--muted);margin:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:44px;padding-top:24px;border-top:1px solid var(--line);flex-wrap:wrap}
+.pager button{font-family:var(--f-mono);font-size:13px;background:var(--panel);border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:12px 18px;cursor:pointer}
+.pager button:hover{border-color:var(--accent);color:var(--accent)}
+
+.led{width:8px;height:8px;border-radius:50%;background:var(--up);display:inline-block;animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--up) 60%,transparent)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.status-pill{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:12.5px;padding:6px 14px;border:1px solid var(--up);color:var(--up);border-radius:999px;background:color-mix(in srgb,var(--up) 10%,transparent)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.tags li{font-family:var(--f-mono);font-size:11.5px;padding:3px 9px;border:1px solid var(--line);border-radius:6px;color:var(--muted);background:var(--panel-2)}
+.btn{font-family:var(--f-mono);font-size:13.5px;font-weight:600;text-decoration:none;padding:12px 20px;border-radius:10px;border:1px solid var(--line);color:var(--fg);background:var(--panel);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn:hover{border-color:var(--accent)}
+
+/* Accueil */
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:start}
+.hero-grid>*{min-width:0}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(60px,9vw,116px);line-height:.88;text-transform:uppercase;margin:24px 0 16px;text-wrap:balance}
+h1 span{color:var(--accent)}
+.role{font-family:var(--f-mono);font-size:15px;color:var(--muted);margin:0 0 22px}
+.role b{color:var(--fg);font-weight:500}
+.lede{max-width:56ch;margin:0 0 30px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.facts{display:flex;gap:34px;flex-wrap:wrap;margin-top:34px;padding-top:22px;border-top:1px dashed var(--line);font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.facts b{display:block;font-family:var(--f-display);font-size:34px;color:var(--fg);line-height:1;font-weight:800}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px}
+.qk{text-align:left;font:inherit;color:inherit;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;cursor:pointer;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
+.qk:hover{border-color:var(--accent)}
+.qk .k{font-family:var(--f-mono);font-size:11.5px;color:var(--accent)}
+.qk b{font-family:var(--f-display);font-size:26px;text-transform:uppercase;line-height:1;font-weight:800}
+.qk>span:last-child{color:var(--muted);font-size:14px}
+@media (max-width:980px){.hero-grid{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.quick{grid-template-columns:1fr}}
+
+/* Terminal */
+.term{background:var(--term);color:var(--term-fg);border:1px solid var(--line);border-radius:14px;font-family:var(--f-mono);font-size:13px;overflow:hidden;box-shadow:var(--shadow)}
+.term-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:color-mix(in srgb,var(--term) 82%,#ffffff 7%);border-bottom:1px solid #1d2d37;font-size:11.5px;color:#7f939d}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:#3a4952;display:inline-block}
+.term-bar i:first-child{background:#f87171}.term-bar i:nth-child(2){background:#fbbf24}.term-bar i:nth-child(3){background:#4ade80}
+.term-bar span{margin-left:8px}
+.term-body{padding:16px 18px;height:360px;overflow:auto;white-space:pre-wrap;word-break:break-word;line-height:1.6}
+.term-body .p{color:var(--t-acc)}.term-body .ok{color:#4ade80}.term-body .dim{color:#7f939d}.term-body .hl{color:#7cb4ff}.term-body .bad{color:#f87171}
+.term-in{display:flex;gap:8px;align-items:center;padding:12px 18px;border-top:1px solid #1d2d37}
+.term-in label{color:var(--t-acc);white-space:nowrap}
+.term-in input{flex:1;min-width:0;background:transparent;border:0;color:var(--term-fg);font:inherit;outline:none;caret-color:var(--t-acc)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 18px 14px}
+.chips button{font:inherit;font-size:11.5px;background:#112029;color:#9fb8c2;border:1px solid #223641;border-radius:6px;padding:4px 10px;cursor:pointer}
+.chips button:hover{color:var(--t-acc);border-color:var(--t-acc)}
+
+/* À propos */
+.about{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+.about>*{min-width:0}
+.bio{padding:34px}
+.bio p{margin:0 0 18px;max-width:60ch}
+.bio p:last-child{margin:0}
+.goals{display:grid;gap:16px}
+.goal{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:22px 24px}
+.goal .tag{font-family:var(--f-mono);font-size:11px;padding:3px 9px;border-radius:6px;border:1px solid currentColor;white-space:nowrap;margin-top:4px}
+.goal h3{margin:0 0 4px;font-size:16.5px;font-weight:600}
+.goal p{margin:0;color:var(--muted);font-size:14.5px}
+.t-up{color:var(--up)}.t-warn{color:var(--warn)}.t-cable{color:var(--cable)}
+@media (max-width:900px){.about{grid-template-columns:1fr}.bio{padding:24px}}
+
+/* Parcours */
+.trace{overflow:hidden}
+.trace-head{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);padding:14px 24px;border-bottom:1px solid var(--line);background:var(--panel-2);overflow-x:auto;white-space:nowrap}
+.hop{display:grid;grid-template-columns:48px 190px 1fr;gap:22px;padding:26px 24px;border-bottom:1px solid var(--line)}
+.hop:last-child{border-bottom:0}
+.hop>*{min-width:0}
+.hop .n{font-family:var(--f-display);font-size:38px;font-weight:800;line-height:1;color:var(--accent)}
+.hop .when{font-family:var(--f-mono);font-size:13.5px}
+.hop .when small{display:block;color:var(--muted);font-size:11.5px;word-break:break-all}
+.hop h3{margin:0 0 4px;font-size:19px;font-weight:600}
+.hop .place{color:var(--muted);font-size:14px;margin:0 0 10px}
+.hop p{margin:0 0 12px;max-width:68ch}
+.hop.now{background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 9%,transparent),transparent 70%)}
+.now-tag{font-family:var(--f-mono);font-size:11px;color:var(--on-accent);background:var(--accent);padding:2px 8px;border-radius:5px;margin-left:8px;vertical-align:middle}
+@media (max-width:700px){.hop{grid-template-columns:36px 1fr;gap:12px 14px}.hop .when{grid-column:2}.hop .body{grid-column:1/-1}}
+
+/* Expériences */
+.neigh{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.nb{padding:26px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.nb.wide{grid-column:1/-1;border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+.nb-top{display:flex;justify-content:space-between;gap:10px;font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.nb-top .kind{color:var(--cable)}
+.nb.wide .nb-top .kind{color:var(--accent)}
+.nb h3{margin:0;font-family:var(--f-display);font-size:32px;font-weight:800;text-transform:uppercase;line-height:1}
+.nb .where{margin:0;color:var(--muted);font-size:14px}
+.nb p{margin:0}
+.nb .tags{margin-top:auto;padding-top:8px}
+@media (max-width:760px){.neigh{grid-template-columns:1fr}}
+
+/* Compétences */
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;gap:7px;align-items:center}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.chassis{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.module{overflow:hidden;min-width:0}
+.module-head{display:flex;justify-content:space-between;align-items:center;padding:14px 22px;background:var(--panel-2);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:12px;color:var(--muted);gap:10px;flex-wrap:wrap}
+.module-head h3{font-family:var(--f-display);font-size:24px;color:var(--fg);margin:0;text-transform:uppercase;font-weight:800;letter-spacing:.02em}
+.ports{display:flex;gap:5px;padding:16px 22px 6px;flex-wrap:wrap}
+.port{width:24px;height:17px;border:1px solid var(--line);border-radius:3px;background:var(--panel-2);position:relative}
+.port::after{content:"";position:absolute;top:4px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--c)}
+.rows{list-style:none;margin:0;padding:8px 22px 18px}
+.rows li{display:grid;grid-template-columns:64px 1fr 48px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.rows li:last-child{border-bottom:0}
+.rows .if{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.rows .nm{min-width:0}
+.rows .bar2{display:block;height:5px;background:var(--panel-2);border-radius:3px;margin-top:6px;overflow:hidden}
+.rows .bar2 i{display:block;height:100%;background:var(--c);border-radius:3px}
+.rows .pc{font-family:var(--f-mono);font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums;color:var(--c)}
+@media (max-width:860px){.chassis{grid-template-columns:1fr}}
+
+/* Projets */
+.feature{display:grid;grid-template-columns:1.25fr 1fr;overflow:hidden;margin-bottom:24px}
+.feature>*{min-width:0}
+.topo{background:var(--panel-2);border-right:1px solid var(--line);padding:18px;overflow-x:auto}
+.topo svg{display:block;width:100%;min-width:460px;height:auto}
+.feature .txt{padding:34px}
+.kicker{font-family:var(--f-mono);font-size:12px;color:var(--accent);margin:0 0 10px}
+.feature h3,.proj h3{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:38px;line-height:.95;margin:0 0 14px}
+.feature p{margin:0 0 16px}
+.spec{list-style:none;padding:0;margin:0 0 22px;font-family:var(--f-mono);font-size:12.5px;display:grid;gap:6px}
+.spec li{display:grid;grid-template-columns:110px 1fr;gap:10px}
+.spec li>span:first-child{color:var(--muted)}
+.collab{font-size:14px;color:var(--muted);margin:18px 0 0!important}
+.projs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.proj{padding:26px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.proj h3{font-size:30px;margin:0}
+.proj p{margin:0;font-size:15px}
+.proj .foot{margin-top:auto;padding-top:10px}
+.proj .lnk{font-family:var(--f-mono);font-size:12.5px;font-weight:600;text-decoration:none}
+.proj .priv{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
+@media (max-width:900px){.feature{grid-template-columns:1fr}.topo{border-right:0;border-bottom:1px solid var(--line)}.projs{grid-template-columns:1fr}.feature .txt{padding:24px}}
+
+/* Lab */
+.lab{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+.lab>*{min-width:0}
+.rack{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:18px 34px;position:relative;box-shadow:var(--shadow)}
+.rack::before,.rack::after{content:"";position:absolute;top:18px;bottom:18px;width:10px;background:radial-gradient(circle,var(--line) 1.6px,transparent 2px) 0 0/10px 14px}
+.rack::before{left:10px}.rack::after{right:10px}
+.u{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:13px 14px;margin:10px 0}
+.u.u2{padding-block:24px}
+.u .slot{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.u b{font-weight:600;display:block;font-size:15px}
+.u small{color:var(--muted);font-size:13px;display:block}
+.u .leds{display:flex;gap:4px}
+.u .leds i{width:7px;height:7px;border-radius:50%;background:var(--up)}
+.u .leds i.a{background:var(--accent)}
+.u .leds i.c{background:var(--cable)}
+.stack{display:grid;gap:28px}
+.stack h3{font-family:var(--f-mono);font-size:12.5px;color:var(--muted);font-weight:500;margin:0 0 12px;text-transform:uppercase;letter-spacing:.08em}
+.vms{display:grid;gap:8px;list-style:none;padding:0;margin:0}
+.vms li{display:flex;justify-content:space-between;gap:10px;padding:11px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel);font-size:14.5px}
+.vms li>span:last-child{font-family:var(--f-mono);font-size:11.5px;color:var(--up)}
+.sub-title{font-family:var(--f-display);font-weight:800;text-transform:uppercase;font-size:38px;margin:64px 0 24px;line-height:1}
+.watch{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.w{padding:24px}
+.w h3{margin:0 0 8px;font-size:16.5px;font-weight:600}
+.w p{margin:0;color:var(--muted);font-size:14.5px}
+@media (max-width:860px){.lab,.watch{grid-template-columns:1fr}}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
+.contact>*{min-width:0}
+.contact h2{font-size:clamp(52px,8vw,96px)}
+.contact .pitch{max-width:48ch;margin:20px 0 26px}
+.ccard{overflow:hidden}
+.crow{display:grid;grid-template-columns:96px 1fr auto;gap:14px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line)}
+.crow:last-child{border-bottom:0}
+.crow>*{min-width:0}
+.crow .k{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.crow .v{font-family:var(--f-mono);font-size:14px;word-break:break-all}
+.copy{font-family:var(--f-mono);font-size:12px;background:var(--panel-2);border:1px solid var(--line);color:var(--fg);padding:6px 12px;border-radius:8px;cursor:pointer}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+@media (max-width:860px){.contact{grid-template-columns:1fr}}
+@media (max-width:460px){.crow{grid-template-columns:1fr auto}.crow .k{grid-column:1/-1}}
+
+
+/* Contact (formulaire + infos) */
+.contact-head{text-align:center;margin-bottom:46px}
+.contact-head h2{font-size:clamp(46px,7vw,80px)}
+.contact-head>p:last-child{color:var(--muted);margin:14px auto 0;max-width:52ch}
+.contact2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact2>*{min-width:0}
+.cform{display:grid;gap:22px}
+.fld{display:grid;gap:8px}
+.fld label{font-size:14px;font-weight:600}
+.fld input,.fld textarea{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;width:100%}
+.fld textarea{resize:vertical;min-height:160px}
+.fld ::placeholder{color:var(--muted);opacity:.75}
+.fld input:focus,.fld textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.send{justify-content:center;padding:15px 20px;font-size:15px;width:100%}
+.ferr{margin:0;color:var(--down);font-size:14px}
+.side{display:grid;gap:28px}
+.side-t{font-size:14px;font-weight:600;margin:0 0 10px}
+.irow{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:16px 18px;border-bottom:1px solid var(--line)}
+.irow:last-child{border-bottom:0}
+.irow>*{min-width:0}
+.ico{width:44px;height:44px;border-radius:50%;background:var(--panel-2);display:grid;place-items:center;color:var(--fg)}
+.ico svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ico.mono{font-family:var(--f-mono);font-size:13px;font-weight:600}
+.irow b{display:block;font-size:14px}
+.irow .v{font-family:var(--f-mono);font-size:13.5px;word-break:break-all}
+.cvbox{display:grid;grid-template-columns:repeat(2,1fr);padding:28px 10px}
+.cvbtn{display:flex;flex-direction:column;align-items:center;gap:10px;color:var(--fg);text-decoration:none;font-family:var(--f-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;padding:6px}
+.cvbtn svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cvbtn:hover{color:var(--accent)}
+.stat{display:flex;align-items:center;gap:16px;padding:20px 22px}
+.sent{padding:22px;display:grid;gap:12px}
+.sent h3{margin:0;font-size:17px}
+.sent p{margin:0;font-size:14.5px}
+.draft{margin:0;background:var(--term);color:var(--term-fg);border-radius:10px;padding:14px 16px;font-family:var(--f-mono);font-size:12.5px;white-space:pre-wrap;word-break:break-word;max-height:220px;overflow:auto}
+.sent .row{display:flex;gap:10px;flex-wrap:wrap}
+.copy{text-decoration:none;display:inline-block}
+.caret{color:var(--t-acc);animation:blink 1s steps(2,start) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (max-width:860px){.contact2{grid-template-columns:1fr;gap:34px}}
+
+footer{padding-block:26px 34px;font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+<div class="dock">
+  <div class="wrap">
+    <div class="bar">
+      <div class="brand"><span class="led"></span><span><b>cyriak-launay</b>#</span></div>
+      <nav class="tabs" id="tabs" aria-label="Pages"></nav>
+      <div class="tools">
+        <label class="sr" for="lang" style="position:absolute;left:-9999px">Language</label>
+        <select class="pill-btn" id="lang" aria-label="Language"><option value="fr">FR · Français</option><option value="en">EN · English</option><option value="es">ES · Español</option><option value="de">DE · Deutsch</option></select>
+        <button class="pill-btn" id="themeBtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="themeMenu">◐ <span data-i="th.label">Thème</span></button>
+        <div class="menu" id="themeMenu" hidden>
+          <p class="menu-t" data-i="th.mode">Mode</p>
+          <div class="seg" id="modeSeg"><button type="button" data-mode="auto" data-i="th.auto">Auto</button><button type="button" data-mode="light" data-i="th.light">Clair</button><button type="button" data-mode="dark" data-i="th.dark">Sombre</button></div>
+          <p class="menu-t" data-i="th.color">Couleur</p>
+          <div class="sw" id="swatches"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ACCUEIL -->
+<section class="view" id="v-accueil" data-title="Accueil">
+  <div class="hero-grid">
+    <div>
+      <div class="id-row"><span class="avatar" id="av1" aria-hidden="true">CL</span><span class="status-pill"><span class="led"></span><span data-i="h.pill">En poste · Soparco SAS</span></span></div>
+      <h1>Cyriak<br><span>Launay</span></h1>
+      <p class="role" data-i="h.role"><b>Agent de maintenance informatique</b> · BTS SIO option SISR</p>
+      <p class="lede" data-i="h.lede">Je conçois, segmente et sécurise des infrastructures : VLAN, routage inter-VLAN, pare-feu Stormshield et OPNsense, Active Directory, virtualisation Proxmox, supervision et centralisation des logs.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projets" data-go="projets"><span data-i="h.b1">Voir mes projets →</span></a>
+        <a class="btn" href="#contact" data-go="contact"><span data-i="h.b2">Me contacter</span></a>
+        <a class="btn" href="https://cyriaklaunay.vercel.app/cv.html" target="_blank" rel="noopener"><span data-i="h.b3">Mon CV ↗</span></a>
+      </div>
+      <div class="facts">
+        <div><b>5+</b><span data-i="h.f1">ans de formation</span></div>
+        <div><b>4</b><span data-i="h.f2">sites interconnectés</span></div>
+        <div><b>15+</b><span data-i="h.f3">technologies</span></div>
+      </div>
+    </div>
+
+    <div class="term" aria-label="Console interactive">
+      <div class="term-bar"><i></i><i></i><i></i><span>ssh admin@cyriak-launay</span></div>
+      <div class="term-body" id="out" aria-live="polite"><span class="dim">User Access Verification
+Bienvenue sur la console. Tape « help » ou clique une commande.</span>
+
+<span class="p">cyriak-launay#</span> show version
+Cyriak Launay — Portfolio IOS, Version 3.0
+Poste     : <span class="hl">Agent de maintenance informatique, Soparco SAS</span>
+Formation : BTS SIO option SISR, Lycée Fulbert (Chartres)
+
+<span class="p">cyriak-launay#</span> show ip interface brief
+Interface        Status   Protocol
+Reseaux          <span class="ok">up</span>       <span class="ok">up</span>
+Cybersecurite    <span class="ok">up</span>       <span class="ok">up</span>
+Systemes_Cloud   <span class="ok">up</span>       <span class="ok">up</span>
+</div>
+      <div class="chips" id="chips">
+        <button type="button">help</button><button type="button">whoami</button><button type="button">show vlan brief</button><button type="button">show cdp neighbors</button><button type="button">ping contact</button><button type="button">clear</button>
+      </div>
+      <form class="term-in" id="termForm" autocomplete="off">
+        <label for="cmd">cyriak-launay#</label>
+        <input id="cmd" type="text" spellcheck="false" aria-label="Commande" placeholder="help">
+      </form>
+    </div>
+  </div>
+
+  <div class="quick">
+    <button class="qk" type="button" data-go="parcours"><span class="k">traceroute</span><b><span data-i="n.parcours">Parcours</span></b><span><span data-i="q.parcours">Du Bac Pro au poste actuel.</span></span></button>
+    <button class="qk" type="button" data-go="competences"><span class="k">show interfaces</span><b><span data-i="n.competences">Compétences</span></b><span><span data-i="q.comp">Réseaux, sécurité, systèmes.</span></span></button>
+    <button class="qk" type="button" data-go="projets"><span class="k">show projects</span><b><span data-i="n.projets">Projets</span></b><span><span data-i="q.proj">SportLudique et réalisations.</span></span></button>
+    <button class="qk" type="button" data-go="contact"><span class="k">ping</span><b><span data-i="n.contact">Contact</span></b><span>Email, LinkedIn, GitHub.</span></button>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="view" id="v-apropos" data-title="À propos" hidden>
+  <div class="page-head"><div><p class="cmd"><b>#</b> show running-config | section about</p><h2><span data-i="n.apropos">À propos</span></h2></div></div>
+  <div class="about">
+    <div class="card bio">
+      <div class="who"><span class="avatar lg" id="av2" aria-hidden="true">CL</span><div><b>Cyriak Launay</b><span class="r" data-i="job">Agent de maintenance informatique</span></div></div>
+      <p><span data-i="a.p1">Passionné par l'informatique depuis toujours, j'ai choisi l'administration systèmes et réseaux pour comprendre et maîtriser les infrastructures qui font tourner le monde numérique.</span></p>
+      <p><span data-i="a.p2">Agent de maintenance informatique chez Soparco SAS, je mets en pratique ce que j'ai appris en BTS SIO option SISR : serveurs HP ProLiant, switchs Cisco, pare-feu Stormshield, virtualisation et gestion de parc.</span></p>
+      <p><span data-i="a.p3">Curieux et rigoureux, j'aime les défis techniques et je documente ce que je construis pour que d'autres puissent le reprendre.</span></p>
+    </div>
+    <div class="goals">
+      <div class="card goal"><span class="tag t-up"><span data-i="g.t1">poste actuel</span></span><div><h3><span data-i="job">Agent de maintenance informatique</span></h3><p>Soparco SAS.</p></div></div>
+      <div class="card goal"><span class="tag t-cable"><span data-i="g.t2">formation</span></span><div><h3>BTS SIO option SISR</h3><p>Lycée Fulbert, Chartres, 2024 – 2026.</p></div></div>
+      <div class="card goal"><span class="tag t-warn"><span data-i="g.t3">objectif</span></span><div><h3><span data-i="g.h3">Approfondir réseaux et sécurité</span></h3><p><span data-i="g.p3">En production comme en lab.</span></p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section class="view" id="v-parcours" data-title="Parcours" hidden>
+  <div class="page-head"><div><p class="cmd"><b>#</b> traceroute soparco-sas</p><h2><span data-i="n.parcours">Parcours</span></h2></div><p class="sec-note"><span data-i="pc.note">Chaque saut est une étape de formation ou d'emploi, de la plus ancienne à la plus récente.</span></p></div>
+  <div class="card trace">
+    <div class="trace-head">Tracing the route to soparco-sas, 30 hops max</div>
+    <div class="hop"><div class="n">1</div><div class="when">2021<small>jean-monnet.la-loupe</small></div>
+      <div class="body"><h3><span data-i="pc.h1">Brevet des collèges</span></h3><p class="place">Collège Jean Monnet, La Loupe</p></div></div>
+    <div class="hop"><div class="n">2</div><div class="when">2021 – 2024<small>sully.nogent-le-rotrou</small></div>
+      <div class="body"><h3><span data-i="pc.h2">Bac Pro Systèmes Numériques</span></h3><p class="place">Lycée des Métiers Sully, Nogent-le-Rotrou</p>
+        <p><span data-i="pc.d2">Trois années de formation technique : premières bases en virtualisation, téléphonie IP, routage et Windows Server.</span></p>
+        <ul class="tags"><li>Proxmox VE</li><li>VoIP</li><li>Routeurs</li><li>Windows Server</li></ul></div></div>
+    <div class="hop"><div class="n">3</div><div class="when">2024 – 2026<small>fulbert.chartres</small></div>
+      <div class="body"><h3>BTS SIO option SISR</h3><p class="place">Lycée Fulbert, Chartres</p>
+        <p><span data-i="pc.d3">Conception de l'infrastructure SportLudique, interconnexion de 4 agences, sur serveurs HP ProLiant DL380, switchs Cisco 2960 / 9200L et pare-feu Stormshield SN210.</span></p>
+        <ul class="tags"><li>Cisco</li><li>Stormshield</li><li>Windows Server</li><li>GLPI</li><li>Docker</li><li>Proxmox VE</li><li>OPNsense</li></ul></div></div>
+    <div class="hop"><div class="n">4</div><div class="when">2026<small>xo-xls-optronic.le-coudray</small></div>
+      <div class="body"><h3><span data-i="pc.h4">Stage chez XO XLS Optronic</span></h3><p class="place">Le Coudray</p>
+        <p><span data-i="pc.d4">Audit du parc informatique, maintenance des postes et serveurs, téléphonie IP, installation de fibre optique et développement web.</span></p>
+        <ul class="tags"><li><span data-i="tg.parc">Audit de parc</span></li><li><span data-i="tg.maint">Maintenance</span></li><li>Windows Server</li><li><span data-i="tg.voipf">VoIP &amp; fibre</span></li><li>Web</li></ul></div></div>
+    <div class="hop now"><div class="n">5</div><div class="when"><span data-i="when.now">Actuellement</span><small>soparco-sas</small></div>
+      <div class="body"><h3><span data-i="job">Agent de maintenance informatique</span><span class="now-tag"><span data-i="now">POSTE ACTUEL</span></span></h3><p class="place">Soparco SAS</p></div></div>
+  </div>
+</section>
+
+<!-- EXPÉRIENCES -->
+<section class="view" id="v-experiences" data-title="Expériences" hidden>
+  <div class="page-head"><div><p class="cmd"><b>#</b> show cdp neighbors detail</p><h2><span data-i="n.experiences">Expériences</span></h2></div><p class="sec-note"><span data-i="e.note">Poste actuel, stages, hackathon et salon professionnel.</span></p></div>
+  <div class="neigh">
+    <article class="card nb wide">
+      <div class="nb-top"><span class="kind"><span data-i="now">POSTE ACTUEL</span></span><span><span data-i="ong">En cours</span></span></div>
+      <h3>Soparco SAS</h3><p class="where"><span data-i="job">Agent de maintenance informatique</span></p>
+    </article>
+    <article class="card nb">
+      <div class="nb-top"><span class="kind"><span data-i="e.k1">STAGE</span></span><span>2026</span></div>
+      <h3>XO XLS Optronic</h3><p class="where">Le Coudray</p>
+      <p><span data-i="e.d1">Audit de parc, maintenance postes et serveurs, téléphonie IP, fibre optique et développement de sites web.</span></p>
+      <ul class="tags"><li><span data-i="tg.audit">Audit &amp; maint.</span></li><li><span data-i="tg.ip">Téléphonie IP</span></li><li><span data-i="tg.fiber">Fibre optique</span></li><li><span data-i="tg.web">Dév. web</span></li></ul>
+    </article>
+    <article class="card nb">
+      <div class="nb-top"><span class="kind"><span data-i="e.k2">STAGE · BAC+1</span></span><span>2025</span></div>
+      <h3>XtremPro</h3><p class="where"><span data-i="e.shop">Boutique informatique</span></p>
+      <p><span data-i="e.d2">Démontage et réparation de PC et d'imprimantes, réinstallation de Windows, remplacement de disques HDD et SSD.</span></p>
+      <ul class="tags"><li>Hardware</li><li>Windows</li><li><span data-i="tg.support">Dépannage</span></li></ul>
+    </article>
+    <article class="card nb">
+      <div class="nb-top"><span class="kind">HACKATHON</span><span>2025</span></div>
+      <h3>Nuit de l'Info</h3><p class="where"><span data-i="e.natl">Hackathon national</span></p>
+      <p><span data-i="e.d3">Challenges CTF et résolution de défis de sécurité en équipe, sur une nuit.</span></p>
+      <ul class="tags"><li>CTF</li><li><span data-i="tg.sec">Cybersécurité</span></li><li><span data-i="tg.team">Travail d'équipe</span></li></ul>
+    </article>
+    <article class="card nb">
+      <div class="nb-top"><span class="kind"><span data-i="e.k4">SALON PRO</span></span><span>2025</span></div>
+      <h3>IT Partners</h3><p class="where">Accor Arena, Paris</p>
+      <p><span data-i="e.d4">Échanges avec constructeurs, éditeurs et grossistes. Veille sur les solutions d'infrastructure, de cybersécurité et de cloud.</span></p>
+      <ul class="tags"><li>Networking</li><li><span data-i="tg.veille">Veille</span></li><li>Solutions IT</li><li>B2B</li></ul>
+    </article>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section class="view" id="v-competences" data-title="Compétences" hidden>
+  <div class="page-head"><div><p class="cmd"><b>#</b> show interfaces status</p><h2><span data-i="n.competences">Compétences</span></h2></div>
+    <div class="legend"><span><i style="background:var(--up)"></i><span data-i="lg1">maîtrisé ≥ 80 %</span></span><span><i style="background:var(--cable)"></i><span data-i="lg2">opérationnel 60–79 %</span></span><span><i style="background:var(--warn)"></i><span data-i="lg3">en apprentissage</span></span></div></div>
+  <div class="chassis" id="chassis"></div>
+</section>
+
+<!-- PROJETS -->
+<section class="view" id="v-projets" data-title="Projets" hidden>
+  <div class="page-head"><div><p class="cmd"><b>#</b> show projects</p><h2><span data-i="n.projets">Projets</span></h2></div><p class="sec-note"><span data-i="pr.note">Des projets concrets réalisés en BTS SIO et en stage.</span></p></div>
+  <article class="card feature">
+    <div class="topo">
+      <svg id="topo" viewBox="0 0 560 400" role="img" aria-label="Topologie SportLudique : quatre agences interconnectées">
+        <g fill="none" stroke="var(--cable)" stroke-width="1.6" stroke-dasharray="5 5">
+          <path id="l1" d="M150 90 L410 120"/><path id="l2" d="M150 90 L130 300"/><path id="l3" d="M410 120 L430 300"/><path id="l4" d="M130 300 L430 300"/>
+          <path d="M150 90 L430 300" opacity=".4"/><path d="M410 120 L130 300" opacity=".4"/>
+        </g>
+        <g fill="var(--accent)">
+          <circle r="3.5"><animateMotion dur="3.2s" repeatCount="indefinite"><mpath href="#l1"/></animateMotion></circle>
+          <circle r="3.5"><animateMotion dur="3.8s" repeatCount="indefinite"><mpath href="#l2"/></animateMotion></circle>
+          <circle r="3.5"><animateMotion dur="3.4s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#l3"/></animateMotion></circle>
+          <circle r="3.5"><animateMotion dur="4.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#l4"/></animateMotion></circle>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--fg)">
+          <g transform="translate(150 90)"><rect x="-62" y="-30" width="124" height="60" rx="8" fill="var(--panel)" stroke="var(--accent)"/><text x="0" y="-9" text-anchor="middle" font-weight="600" fill="var(--accent)">CHARTRES</text><text x="0" y="8" text-anchor="middle" fill="var(--muted)">FW · SW</text><text x="0" y="22" text-anchor="middle" fill="var(--muted)">VLAN 802.1Q</text></g>
+          <g transform="translate(410 120)"><rect x="-62" y="-30" width="124" height="60" rx="8" fill="var(--panel)" stroke="var(--line)"/><text x="0" y="-9" text-anchor="middle" font-weight="600">ORLÉANS</text><text x="0" y="8" text-anchor="middle" fill="var(--muted)">FW · SW</text><text x="0" y="22" text-anchor="middle" fill="var(--muted)">VLAN 802.1Q</text></g>
+          <g transform="translate(130 300)"><rect x="-62" y="-30" width="124" height="60" rx="8" fill="var(--panel)" stroke="var(--line)"/><text x="0" y="-9" text-anchor="middle" font-weight="600">TOURS</text><text x="0" y="8" text-anchor="middle" fill="var(--muted)">FW · SW</text><text x="0" y="22" text-anchor="middle" fill="var(--muted)">VLAN 802.1Q</text></g>
+          <g transform="translate(430 300)"><rect x="-62" y="-30" width="124" height="60" rx="8" fill="var(--panel)" stroke="var(--line)"/><text x="0" y="-9" text-anchor="middle" font-weight="600">BOURGES</text><text x="0" y="8" text-anchor="middle" fill="var(--muted)">FW · SW</text><text x="0" y="22" text-anchor="middle" fill="var(--muted)">VLAN 802.1Q</text></g>
+          <text data-i="svg.cap" x="280" y="372" text-anchor="middle" fill="var(--muted)" font-size="10.5">interconnexion sécurisée des 4 agences</text>
+        </g>
+      </svg>
+    </div>
+    <div class="txt">
+      <p class="kicker"><span data-i="pr.kick">PROJET PRINCIPAL · BTS SIO</span></p>
+      <h3><span data-i="pr.h">Infrastructure multi-sites SportLudique</span></h3>
+      <p><span data-i="pr.p">Interconnexion sécurisée de quatre agences régionales : pare-feu, reverse proxy, gestion de parc et centralisation des logs.</span></p>
+      <ul class="spec">
+        <li><span><span data-i="sp1">Serveurs</span></span><span>HP ProLiant DL380</span></li>
+        <li><span><span data-i="sp2">Commutation</span></span><span>Cisco 2960 / 9200L, VLAN</span></li>
+        <li><span><span data-i="sp3">Sécurité</span></span><span>Stormshield SN210, reverse proxy</span></li>
+        <li><span><span data-i="sp4">Exploitation</span></span><span>GLPI, Graylog</span></li>
+      </ul>
+      <a class="btn primary" href="https://xola-max.github.io/gp-orleans-sportludique2025-2026/" target="_blank" rel="noopener"><span data-i="pr.doc">Voir la documentation ↗</span></a>
+      <p class="collab"><span data-i="pr.with">En équipe avec</span> <a href="https://mesangeantoine.fr/" target="_blank" rel="noopener">Antoine Mesange</a> <span data-i="pr.and">et</span> <a href="https://louis-bertrand-gh.github.io/Portfolio/html/index.html" target="_blank" rel="noopener">Louis Bertrand</a>.</p>
+    </div>
+  </article>
+  <div class="projs">
+    <article class="card proj"><p class="kicker"><span data-i="p1.k">STAGE · PoC</span></p><h3>Scraping B2B</h3>
+      <p><span data-i="p1.p">Application de collecte de données sur les réseaux sociaux professionnels, conçue pour gérer les limites de débit et les protections anti-bot. Automatisation de la prospection.</span></p>
+      <ul class="tags"><li>Python</li><li>Selenium</li><li><span data-i="tg.auto">Automatisation</span></li></ul>
+      <div class="foot"><span class="priv"><span data-i="p1.f">Projet interne, non publié</span></span></div></article>
+    <article class="card proj"><p class="kicker">WEB</p><h3>FC Fulbert</h3>
+      <p><span data-i="p2.p">Site vitrine du club, dans sa nouvelle version hébergée sur GitHub Pages.</span></p>
+      <ul class="tags"><li>HTML / CSS</li><li>GitHub Pages</li></ul>
+      <div class="foot"><a class="lnk" href="https://davidsio1.github.io/FCFulbert/" target="_blank" rel="noopener"><span data-i="p2.l">Voir le site ↗</span></a></div></article>
+    <article class="card proj"><p class="kicker"><span data-i="p3.k">JEU WEB</span></p><h3><span data-i="p3.h">Cluedo en ligne</span></h3>
+      <p><span data-i="p3.p">Jeu web interactif reposant sur une logique algorithmique complète.</span></p>
+      <ul class="tags"><li>JavaScript</li><li><span data-i="tg.algo">Algorithmique</span></li></ul>
+      <div class="foot"><a class="lnk" href="https://cyriak-cluedo.vercel.app/" target="_blank" rel="noopener"><span data-i="p3.l">Jouer ↗</span></a></div></article>
+  </div>
+</section>
+
+<!-- LAB & VEILLE -->
+<section class="view" id="v-lab" data-title="Lab &amp; veille" hidden>
+  <div class="page-head"><div><p class="cmd"><b>#</b> show inventory</p><h2><span data-i="lab.h">Environnement technique</span></h2></div><p class="sec-note"><span data-i="lab.note">Serveurs HP ProLiant DL380 en environnement de test, virtualisation Proxmox et conteneurs Docker pour les services web.</span></p></div>
+  <div class="lab">
+    <div class="rack" aria-label="Baie du lab">
+      <div class="u"><span class="slot">U1</span><div><b>Stormshield SN210</b><small><span data-i="r1">Pare-feu périmétrique</span></small></div><span class="leds"><i></i><i class="a"></i></span></div>
+      <div class="u"><span class="slot">U2</span><div><b>Cisco Catalyst 9200L</b><small><span data-i="r2">Cœur L3, routage inter-VLAN</span></small></div><span class="leds"><i></i><i></i><i class="c"></i><i class="c"></i></span></div>
+      <div class="u"><span class="slot">U3</span><div><b>Cisco Catalyst 2960</b><small><span data-i="r3">Accès, VLAN 802.1Q</span></small></div><span class="leds"><i></i><i class="c"></i><i class="c"></i></span></div>
+      <div class="u u2"><span class="slot">U4–5</span><div><b>HP ProLiant DL380</b><small><span data-i="r4">Hyperviseur Proxmox VE, conteneurs LXC</span></small></div><span class="leds"><i></i><i></i><i class="a"></i></span></div>
+      <div class="u"><span class="slot">U6</span><div><b>Sauvegarde Oxibox</b><small><span data-i="r5">Sauvegarde externalisée</span></small></div><span class="leds"><i></i></span></div>
+    </div>
+    <div class="stack">
+      <div><h3><span data-i="lab.h3a">Services hébergés</span></h3>
+        <ul class="vms">
+          <li><span>Windows Server · Active Directory</span><span>running</span></li>
+          <li><span>OPNsense · VLANs</span><span>running</span></li>
+          <li><span><span data-i="vm3">Graylog · centralisation des logs</span></span><span>running</span></li>
+          <li><span><span data-i="vm4">GLPI · gestion de parc</span></span><span>running</span></li>
+          <li><span>Docker + Portainer</span><span>running</span></li>
+        </ul></div>
+      <div><h3><span data-i="lab.h3b">Aussi pratiqué</span></h3>
+        <ul class="tags"><li>Nutanix</li><li>VMware</li><li>Ansible</li><li>Cisco IOS</li><li>Debian / Ubuntu</li><li>PowerShell</li></ul></div>
+    </div>
+  </div>
+  <p class="cmd" style="margin-top:64px"><b>#</b> show logging | include veille</p>
+  <h2 style="font-size:clamp(38px,5vw,52px);margin-bottom:24px"><span data-i="v.h">Veille technologique</span></h2>
+  <div class="watch">
+    <div class="card w"><h3><span data-i="w1h">Flux de sécurité</span></h3><p><span data-i="w1p">Suivi des menaces et des vulnérabilités publiées.</span></p></div>
+    <div class="card w"><h3><span data-i="w2h">Solutions open source</span></h3><p><span data-i="w2p">Évolutions de Debian et d'OPNsense.</span></p></div>
+    <div class="card w"><h3><span data-i="w3h">Documentation</span></h3><p><span data-i="w3p">Procédures rédigées en MkDocs et versionnées sur GitHub.</span></p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="view" id="v-contact" data-title="Contact" hidden>
+  <div class="contact-head">
+    <p class="cmd"><b>#</b> ping contact</p>
+    <h2 data-i="ct.title">Me contacter</h2>
+    <p data-i="ct.sub">Une question, un projet ou une opportunité ? Discutons-en !</p>
+  </div>
+  <div class="contact2">
+    <form class="cform" id="cform" novalidate>
+      <div class="fld"><label for="f-name" data-i="f.name">Nom complet</label><input id="f-name" type="text" autocomplete="name" data-ph="f.ph.name" placeholder="Votre nom"></div>
+      <div class="fld"><label for="f-mail" data-i="f.email">Email</label><input id="f-mail" type="email" autocomplete="email" data-ph="f.ph.mail" placeholder="votre@email.com"></div>
+      <div class="fld"><label for="f-msg" data-i="f.msg">Message</label><textarea id="f-msg" rows="6" data-ph="f.ph.msg" placeholder="Votre message…"></textarea></div>
+      <p class="ferr" id="ferr" role="alert" hidden data-i="ok.err">Remplis ton nom, ton email et ton message.</p>
+      <button class="btn primary send" type="submit"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7Z"/></svg><span data-i="f.send">Envoyer</span></button>
+      <div class="card sent" id="sent" role="status" hidden>
+        <h3 data-i="ok.t">Message prêt à être envoyé</h3>
+        <p><span data-i="ok.p">Cette page ne peut pas envoyer d'email elle-même. Copie le message, puis envoie-le à</span> <b>cyriaklaunay@gmail.com</b>.</p>
+        <pre class="draft" id="draft"></pre>
+        <div class="row"><button type="button" class="copy" id="copyDraft"><span data-i="ok.copy">Copier le message</span></button><a class="copy" id="mailto" href="mailto:cyriaklaunay@gmail.com" target="_blank" rel="noopener"><span data-i="ok.mail">Ouvrir ma messagerie</span></a></div>
+      </div>
+    </form>
+    <div class="side">
+      <div><p class="side-t" data-i="s.contact">Contact</p>
+        <div class="card">
+          <div class="irow"><span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><div><b>Email</b><span class="v" id="mail">cyriaklaunay@gmail.com</span></div><button class="copy" type="button" id="copyMail"><span data-i="cp">Copier</span></button></div>
+          <div class="irow"><span class="ico mono">in</span><div><b>LinkedIn</b><a class="v" href="https://www.linkedin.com/in/cyriak-launay-a538bb398/" target="_blank" rel="noopener">cyriak-launay</a></div><span></span></div>
+          <div class="irow"><span class="ico mono">&lt;/&gt;</span><div><b>GitHub</b><a class="v" href="https://github.com/CLePtiot/PortFolio" target="_blank" rel="noopener">CLePtiot</a></div><span></span></div>
+        </div></div>
+      <div><p class="side-t" data-i="s.cv">Mon CV</p>
+        <div class="card cvbox">
+          <a class="cvbtn" href="https://cyriaklaunay.vercel.app/cv.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span data-i="cv.view">Visualiser</span></a>
+          <a class="cvbtn" href="https://cyriaklaunay.vercel.app/cv.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg><span data-i="cv.dl">Télécharger</span></a>
+        </div></div>
+      <div><p class="side-t" data-i="s.status">Statut</p>
+        <div class="card stat"><span class="led"></span><span data-i="h.pill">En poste · Soparco SAS</span></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap"><span>cyriak-launay# _</span><span>© 2026 Cyriak Launay</span></div></footer>
+
+<script>
+/* ---------- Dictionnaire : [en, es, de] — le français vient du HTML ---------- */
+const LANGS=["fr","en","es","de"];
+const D={
+"n.accueil":["Home","Inicio","Start"],
+"n.apropos":["About","Sobre mí","Über mich"],
+"n.parcours":["Journey","Trayectoria","Werdegang"],
+"n.experiences":["Experience","Experiencia","Erfahrung"],
+"n.competences":["Skills","Competencias","Kompetenzen"],
+"n.projets":["Projects","Proyectos","Projekte"],
+"n.lab":["Lab &amp; watch","Lab y vigilancia","Labor &amp; Trends"],
+"n.contact":["Contact","Contacto","Kontakt"],
+"th.label":["Theme","Tema","Design"],
+"th.mode":["Mode","Modo","Modus"],
+"th.auto":["Auto","Auto","Auto"],
+"th.light":["Light","Claro","Hell"],
+"th.dark":["Dark","Oscuro","Dunkel"],
+"th.color":["Colour","Color","Farbe"],
+"p.teal":["Teal","Turquesa","Türkis"],
+"p.blue":["Blue","Azul","Blau"],
+"p.green":["Green","Verde","Grün"],
+"p.amber":["Amber","Ámbar","Bernstein"],
+"p.violet":["Violet","Violeta","Violett"],
+"h.pill":["Working at Soparco SAS","Trabajando en Soparco SAS","Tätig bei Soparco SAS"],
+"h.role":["<b>IT maintenance technician</b> · BTS SIO (SISR option)","<b>Técnico de mantenimiento informático</b> · BTS SIO opción SISR","<b>IT-Wartungstechniker</b> · BTS SIO, Schwerpunkt SISR"],
+"h.lede":["I design, segment and secure infrastructures: VLANs, inter-VLAN routing, Stormshield and OPNsense firewalls, Active Directory, Proxmox virtualization, monitoring and centralized logging.","Diseño, segmento y protejo infraestructuras: VLAN, enrutamiento entre VLAN, cortafuegos Stormshield y OPNsense, Active Directory, virtualización Proxmox, monitorización y centralización de logs.","Ich entwerfe, segmentiere und sichere Infrastrukturen: VLANs, Inter-VLAN-Routing, Stormshield- und OPNsense-Firewalls, Active Directory, Proxmox-Virtualisierung, Monitoring und zentrale Log-Auswertung."],
+"h.b1":["See my projects →","Ver mis proyectos →","Meine Projekte ansehen →"],
+"h.b2":["Contact me","Contáctame","Kontakt aufnehmen"],
+"h.b3":["My CV ↗","Mi CV ↗","Mein Lebenslauf ↗"],
+"h.f1":["years of training","años de formación","Jahre Ausbildung"],
+"h.f2":["interconnected sites","sedes interconectadas","vernetzte Standorte"],
+"h.f3":["technologies","tecnologías","Technologien"],
+"q.parcours":["From vocational Bac to my current job.","Del Bac Pro al puesto actual.","Vom Bac Pro zur aktuellen Stelle."],
+"q.comp":["Networks, security, systems.","Redes, seguridad, sistemas.","Netzwerke, Sicherheit, Systeme."],
+"q.proj":["SportLudique and other work.","SportLudique y otras realizaciones.","SportLudique und weitere Arbeiten."],
+"a.p1":["I have been passionate about computing for as long as I can remember. I chose systems and network administration to understand and master the infrastructures that keep the digital world running.","Me apasiona la informática desde siempre. Elegí la administración de sistemas y redes para comprender y dominar las infraestructuras que hacen funcionar el mundo digital.","Die Informatik begeistert mich schon immer. Ich habe mich für Systemadministration und Netzwerke entschieden, um die Infrastrukturen zu verstehen und zu beherrschen, die die digitale Welt am Laufen halten."],
+"a.p2":["As an IT maintenance technician at Soparco SAS, I put into practice what I learned in my BTS SIO (SISR option): HP ProLiant servers, Cisco switches, Stormshield firewalls, virtualization and asset management.","Como técnico de mantenimiento informático en Soparco SAS, pongo en práctica lo aprendido en el BTS SIO opción SISR: servidores HP ProLiant, switches Cisco, cortafuegos Stormshield, virtualización y gestión de parque.","Als IT-Wartungstechniker bei Soparco SAS wende ich an, was ich im BTS SIO (Schwerpunkt SISR) gelernt habe: HP-ProLiant-Server, Cisco-Switches, Stormshield-Firewalls, Virtualisierung und Bestandsverwaltung."],
+"a.p3":["Curious and rigorous, I enjoy technical challenges and I document what I build so that others can pick it up.","Curioso y riguroso, me gustan los retos técnicos y documento lo que construyo para que otros puedan retomarlo.","Neugierig und gewissenhaft: Ich mag technische Herausforderungen und dokumentiere, was ich baue, damit andere es übernehmen können."],
+"g.t1":["current job","puesto actual","aktuelle Stelle"],
+"g.t2":["education","formación","Ausbildung"],
+"g.t3":["goal","objetivo","Ziel"],
+"g.h3":["Deepen networking and security","Profundizar en redes y seguridad","Netzwerke und Sicherheit vertiefen"],
+"g.p3":["In production as well as in the lab.","Tanto en producción como en el laboratorio.","In der Praxis wie im Labor."],
+"job":["IT maintenance technician","Técnico de mantenimiento informático","IT-Wartungstechniker"],
+"now":["CURRENT JOB","PUESTO ACTUAL","AKTUELLE STELLE"],
+"ong":["Ongoing","En curso","Laufend"],
+"pc.note":["Each hop is a step in training or work, from the oldest to the most recent.","Cada salto es una etapa de formación o empleo, de la más antigua a la más reciente.","Jeder Hop ist eine Etappe in Ausbildung oder Beruf, von der ältesten zur neuesten."],
+"pc.h1":["Brevet (lower secondary diploma)","Brevet (diploma de educación secundaria)","Brevet (Abschluss der Sekundarstufe I)"],
+"pc.h2":["Vocational Bac in Digital Systems","Bac Pro en Sistemas Digitales","Berufsabitur Digitale Systeme"],
+"pc.d2":["Three years of technical training: first foundations in virtualization, IP telephony, routing and Windows Server.","Tres años de formación técnica: primeras bases en virtualización, telefonía IP, enrutamiento y Windows Server.","Drei Jahre technische Ausbildung: erste Grundlagen in Virtualisierung, IP-Telefonie, Routing und Windows Server."],
+"pc.d3":["Design of the SportLudique infrastructure, interconnecting 4 branches, on HP ProLiant DL380 servers, Cisco 2960 / 9200L switches and Stormshield SN210 firewalls.","Diseño de la infraestructura SportLudique, interconexión de 4 sucursales, con servidores HP ProLiant DL380, switches Cisco 2960 / 9200L y cortafuegos Stormshield SN210.","Entwurf der SportLudique-Infrastruktur, Vernetzung von 4 Niederlassungen, mit HP-ProLiant-DL380-Servern, Cisco-2960-/9200L-Switches und Stormshield-SN210-Firewalls."],
+"pc.h4":["Internship at XO XLS Optronic","Prácticas en XO XLS Optronic","Praktikum bei XO XLS Optronic"],
+"pc.d4":["IT asset audit, workstation and server maintenance, IP telephony, fiber-optic installation and web development.","Auditoría del parque informático, mantenimiento de equipos y servidores, telefonía IP, instalación de fibra óptica y desarrollo web.","Audit des IT-Bestands, Wartung von Arbeitsplätzen und Servern, IP-Telefonie, Glasfaser-Installation und Webentwicklung."],
+"when.now":["Currently","Actualmente","Aktuell"],
+"tg.parc":["Asset audit","Auditoría de parque","Bestandsaudit"],
+"tg.maint":["Maintenance","Mantenimiento","Wartung"],
+"tg.voipf":["VoIP &amp; fiber","VoIP y fibra","VoIP &amp; Glasfaser"],
+"tg.audit":["Audit &amp; maint.","Auditoría y mant.","Audit &amp; Wartung"],
+"tg.ip":["IP telephony","Telefonía IP","IP-Telefonie"],
+"tg.fiber":["Fiber optics","Fibra óptica","Glasfaser"],
+"tg.web":["Web dev","Desarrollo web","Webentwicklung"],
+"tg.support":["Troubleshooting","Resolución de incidencias","Fehlerbehebung"],
+"tg.team":["Teamwork","Trabajo en equipo","Teamarbeit"],
+"tg.sec":["Cybersecurity","Ciberseguridad","Cybersicherheit"],
+"tg.veille":["Tech watch","Vigilancia","Monitoring"],
+"tg.auto":["Automation","Automatización","Automatisierung"],
+"tg.algo":["Algorithms","Algoritmia","Algorithmik"],
+"e.note":["Current job, internships, hackathon and trade show.","Puesto actual, prácticas, hackathon y feria profesional.","Aktuelle Stelle, Praktika, Hackathon und Fachmesse."],
+"e.k1":["INTERNSHIP","PRÁCTICAS","PRAKTIKUM"],
+"e.k2":["INTERNSHIP · YEAR 1","PRÁCTICAS · 1.º AÑO","PRAKTIKUM · 1. JAHR"],
+"e.k4":["TRADE SHOW","FERIA PROFESIONAL","FACHMESSE"],
+"e.d1":["Asset audit, workstation and server maintenance, IP telephony, fiber optics and web development.","Auditoría de parque, mantenimiento de equipos y servidores, telefonía IP, fibra óptica y desarrollo web.","Bestandsaudit, Wartung von Arbeitsplätzen und Servern, IP-Telefonie, Glasfaser und Webentwicklung."],
+"e.shop":["Computer shop","Tienda de informática","Computergeschäft"],
+"e.d2":["Disassembly and repair of PCs and printers, Windows reinstallation, HDD and SSD replacement.","Desmontaje y reparación de PC e impresoras, reinstalación de Windows, sustitución de discos HDD y SSD.","Zerlegen und Reparieren von PCs und Druckern, Windows-Neuinstallation, Austausch von HDD und SSD."],
+"e.natl":["National hackathon","Hackathon nacional","Nationaler Hackathon"],
+"e.d3":["CTF challenges and team-based security puzzles over one night.","Retos CTF y desafíos de seguridad en equipo, durante una noche.","CTF-Challenges und Sicherheitsaufgaben im Team, in einer Nacht."],
+"e.d4":["Conversations with manufacturers, software vendors and distributors. Watching infrastructure, cybersecurity and cloud solutions.","Intercambios con fabricantes, editores y mayoristas. Vigilancia de soluciones de infraestructura, ciberseguridad y cloud.","Gespräche mit Herstellern, Softwareanbietern und Großhändlern. Beobachtung von Infrastruktur-, Cybersicherheits- und Cloud-Lösungen."],
+"lg1":["mastered ≥ 80 %","dominado ≥ 80 %","sicher ≥ 80 %"],
+"lg2":["working knowledge 60–79 %","operativo 60–79 %","einsatzfähig 60–79 %"],
+"lg3":["learning","en aprendizaje","in Lernphase"],
+"pr.note":["Hands-on projects built during my BTS SIO and internships.","Proyectos prácticos realizados durante el BTS SIO y las prácticas.","Praxisnahe Projekte aus dem BTS SIO und den Praktika."],
+"pr.kick":["MAIN PROJECT · BTS SIO","PROYECTO PRINCIPAL · BTS SIO","HAUPTPROJEKT · BTS SIO"],
+"pr.h":["SportLudique multi-site infrastructure","Infraestructura multisede SportLudique","SportLudique Multi-Standort-Infrastruktur"],
+"pr.p":["Secure interconnection of four regional branches: firewalls, reverse proxy, asset management and centralized logging.","Interconexión segura de cuatro sucursales regionales: cortafuegos, proxy inverso, gestión de parque y centralización de logs.","Sichere Vernetzung von vier regionalen Niederlassungen: Firewalls, Reverse Proxy, Bestandsverwaltung und zentrale Log-Auswertung."],
+"sp1":["Servers","Servidores","Server"],
+"sp2":["Switching","Conmutación","Switching"],
+"sp3":["Security","Seguridad","Sicherheit"],
+"sp4":["Operations","Operaciones","Betrieb"],
+"pr.doc":["View the documentation ↗","Ver la documentación ↗","Dokumentation ansehen ↗"],
+"pr.with":["Teamed up with","En equipo con","Im Team mit"],
+"pr.and":["and","y","und"],
+"svg.cap":["secure interconnection of the 4 branches","interconexión segura de las 4 sucursales","sichere Vernetzung der 4 Niederlassungen"],
+"p1.k":["INTERNSHIP · PoC","PRÁCTICAS · PoC","PRAKTIKUM · PoC"],
+"p1.p":["Data-collection app for professional social networks, built to handle rate limits and anti-bot protections. Automates prospecting.","Aplicación de recopilación de datos en redes sociales profesionales, diseñada para gestionar límites de tasa y protecciones antibot. Automatiza la prospección.","Anwendung zur Datenerfassung in beruflichen sozialen Netzwerken, ausgelegt auf Ratenbegrenzungen und Anti-Bot-Schutz. Automatisiert die Akquise."],
+"p1.f":["Internal project, not published","Proyecto interno, no publicado","Internes Projekt, nicht veröffentlicht"],
+"p2.p":["Club showcase website, new version hosted on GitHub Pages.","Sitio web del club, en su nueva versión alojada en GitHub Pages.","Vorstellungsseite des Clubs, neue Version auf GitHub Pages."],
+"p2.l":["Visit the site ↗","Ver el sitio ↗","Seite ansehen ↗"],
+"p3.k":["WEB GAME","JUEGO WEB","WEBSPIEL"],
+"p3.h":["Online Cluedo","Cluedo en línea","Cluedo online"],
+"p3.p":["Interactive web game built on full algorithmic logic.","Juego web interactivo basado en una lógica algorítmica completa.","Interaktives Webspiel mit vollständiger algorithmischer Logik."],
+"p3.l":["Play ↗","Jugar ↗","Spielen ↗"],
+"lab.h":["Technical environment","Entorno técnico","Technische Umgebung"],
+"lab.note":["HP ProLiant DL380 servers in a test environment, Proxmox virtualization and Docker containers for web services.","Servidores HP ProLiant DL380 en entorno de pruebas, virtualización Proxmox y contenedores Docker para los servicios web.","HP-ProLiant-DL380-Server in der Testumgebung, Proxmox-Virtualisierung und Docker-Container für Webdienste."],
+"r1":["Perimeter firewall","Cortafuegos perimetral","Perimeter-Firewall"],
+"r2":["L3 core, inter-VLAN routing","Núcleo L3, enrutamiento entre VLAN","L3-Core, Inter-VLAN-Routing"],
+"r3":["Access layer, 802.1Q VLANs","Acceso, VLAN 802.1Q","Zugangsebene, 802.1Q-VLANs"],
+"r4":["Proxmox VE hypervisor, LXC containers","Hipervisor Proxmox VE, contenedores LXC","Proxmox-VE-Hypervisor, LXC-Container"],
+"r5":["Off-site backup","Copia de seguridad externa","Externe Sicherung"],
+"lab.h3a":["Hosted services","Servicios alojados","Gehostete Dienste"],
+"lab.h3b":["Also used","También utilizado","Außerdem im Einsatz"],
+"vm3":["Graylog · centralized logging","Graylog · centralización de logs","Graylog · zentrale Log-Verwaltung"],
+"vm4":["GLPI · asset management","GLPI · gestión de parque","GLPI · Bestandsverwaltung"],
+"v.h":["Technology watch","Vigilancia tecnológica","Technologie-Radar"],
+"w1h":["Security feeds","Fuentes de seguridad","Sicherheits-Feeds"],
+"w1p":["Tracking published threats and vulnerabilities.","Seguimiento de amenazas y vulnerabilidades publicadas.","Verfolgung veröffentlichter Bedrohungen und Schwachstellen."],
+"w2h":["Open-source solutions","Soluciones de código abierto","Open-Source-Lösungen"],
+"w2p":["Debian and OPNsense updates.","Novedades de Debian y OPNsense.","Neuerungen bei Debian und OPNsense."],
+"w3p":["Procedures written in MkDocs and versioned on GitHub.","Procedimientos redactados en MkDocs y versionados en GitHub.","Mit MkDocs verfasste Prozeduren, versioniert auf GitHub."],
+"w3h":["Documentation","Documentación","Dokumentation"],
+"ct.title":["Contact me","Contáctame","Kontakt aufnehmen"],
+"ct.sub":["A question, a project or an opportunity? Let's talk!","¿Una pregunta, un proyecto o una oportunidad? ¡Hablemos!","Eine Frage, ein Projekt oder eine Gelegenheit? Lass uns sprechen!"],
+"f.name":["Full name","Nombre completo","Vollständiger Name"],
+"f.ph.name":["Your name","Tu nombre","Dein Name"],
+"f.email":["Email","Email","E-Mail"],
+"f.ph.mail":["you@email.com","tu@email.com","du@email.com"],
+"f.msg":["Message","Mensaje","Nachricht"],
+"f.ph.msg":["Your message…","Tu mensaje…","Deine Nachricht…"],
+"f.send":["Send","Enviar","Senden"],
+"s.contact":["Contact","Contacto","Kontakt"],
+"s.cv":["My CV","Mi CV","Mein Lebenslauf"],
+"s.status":["Status","Estado","Status"],
+"cv.view":["View","Ver","Ansehen"],
+"cv.dl":["Download","Descargar","Herunterladen"],
+"ok.t":["Message ready to send","Mensaje listo para enviar","Nachricht versandbereit"],
+"ok.p":["This page cannot send emails by itself. Copy the message, then send it to","Esta página no puede enviar correos por sí misma. Copia el mensaje y envíalo a","Diese Seite kann selbst keine E-Mails versenden. Kopiere die Nachricht und sende sie an"],
+"ok.copy":["Copy the message","Copiar el mensaje","Nachricht kopieren"],
+"ok.mail":["Open my mail app","Abrir mi correo","Mail-App öffnen"],
+"ok.err":["Please fill in your name, email and message.","Rellena tu nombre, email y mensaje.","Bitte Name, E-Mail und Nachricht ausfüllen."],
+"ct.h2":["Let's<br>connect.","Pongámonos<br>en contacto.","Lass uns<br>vernetzen."],
+"ct.pitch":["A question, a project or an opportunity in systems, networking or cybersecurity? Write to me.","¿Una pregunta, un proyecto o una oportunidad en sistemas, redes o ciberseguridad? Escríbeme.","Eine Frage, ein Projekt oder eine Gelegenheit in Systemen, Netzwerken oder Cybersicherheit? Schreib mir."],
+"ct.cv":["Open the CV","Abrir el CV","Lebenslauf öffnen"],
+"cp":["Copy","Copiar","Kopieren"],
+"cpd":["Copied","Copiado","Kopiert"],
+"cps":["Selected","Seleccionado","Markiert"],
+"s.ports":["ports","puertos","Ports"],
+"s.avg":["avg.","prom.","Ø"],
+"c.hello":["User Access Verification\nWelcome to the console. Type “help” or click a command.","User Access Verification\nBienvenido a la consola. Escribe «help» o pulsa un comando.","User Access Verification\nWillkommen in der Konsole. Tippe „help“ oder klicke einen Befehl."],
+"c.help":[`Available commands:
+  whoami               one-line profile
+  show version         job and education
+  show ip int brief    skill areas
+  show vlan brief      SportLudique segmentation
+  show cdp neighbors   experience
+  show projects        projects
+  ping contact         get in touch
+  goto &lt;page&gt;         journey, skills, projects, lab, contact
+  clear                clear the screen`,`Comandos disponibles:
+  whoami               perfil en una línea
+  show version         puesto y formación
+  show ip int brief    áreas de competencia
+  show vlan brief      segmentación SportLudique
+  show cdp neighbors   experiencia
+  show projects        proyectos
+  ping contact         ponerse en contacto
+  goto &lt;página&gt;       trayectoria, competencias, proyectos, lab, contacto
+  clear                limpiar la pantalla`,`Verfügbare Befehle:
+  whoami               Profil in einer Zeile
+  show version         Stelle und Ausbildung
+  show ip int brief    Kompetenzbereiche
+  show vlan brief      SportLudique-Segmentierung
+  show cdp neighbors   Erfahrung
+  show projects        Projekte
+  ping contact         Kontakt aufnehmen
+  goto &lt;Seite&gt;        werdegang, kompetenzen, projekte, lab, kontakt
+  clear                Bildschirm leeren`],
+"c.who":[`Cyriak Launay — IT maintenance technician at <span class="hl">Soparco SAS</span>, BTS SIO (SISR option).`,`Cyriak Launay — técnico de mantenimiento informático en <span class="hl">Soparco SAS</span>, BTS SIO opción SISR.`,`Cyriak Launay — IT-Wartungstechniker bei <span class="hl">Soparco SAS</span>, BTS SIO (Schwerpunkt SISR).`],
+"c.ver":[`Cyriak Launay — Portfolio IOS, Version 3.0
+Job       : <span class="hl">IT maintenance technician, Soparco SAS</span>
+Education : BTS SIO (SISR option), Lycée Fulbert (Chartres)`,`Cyriak Launay — Portfolio IOS, Version 3.0
+Puesto    : <span class="hl">Técnico de mantenimiento informático, Soparco SAS</span>
+Formación : BTS SIO opción SISR, Lycée Fulbert (Chartres)`,`Cyriak Launay — Portfolio IOS, Version 3.0
+Stelle     : <span class="hl">IT-Wartungstechniker, Soparco SAS</span>
+Ausbildung : BTS SIO (Schwerpunkt SISR), Lycée Fulbert (Chartres)`],
+"c.vlan":[`VLAN  Name           Status
+----  -------------  ------
+<span class="dim">Per-department segmentation across the 4 SportLudique branches:</span>
+      Chartres · Orléans · Tours · Bourges
+      Inter-VLAN routing on Cisco 9200L, filtering on Stormshield SN210
+<span class="dim">→ details in the project documentation (Projects page)</span>`,`VLAN  Name           Status
+----  -------------  ------
+<span class="dim">Segmentación por servicio en las 4 sucursales SportLudique:</span>
+      Chartres · Orléans · Tours · Bourges
+      Enrutamiento entre VLAN en Cisco 9200L, filtrado en Stormshield SN210
+<span class="dim">→ detalle en la documentación del proyecto (página Proyectos)</span>`,`VLAN  Name           Status
+----  -------------  ------
+<span class="dim">Segmentierung nach Abteilungen an den 4 SportLudique-Standorten:</span>
+      Chartres · Orléans · Tours · Bourges
+      Inter-VLAN-Routing auf Cisco 9200L, Filterung über Stormshield SN210
+<span class="dim">→ Details in der Projektdokumentation (Seite Projekte)</span>`],
+"c.t.now":["Current job","Puesto actual","Aktuelle Stelle"],
+"c.t.int":["Internship","Prácticas","Praktikum"],
+"c.t.hack":["Hackathon","Hackathon","Hackathon"],
+"c.t.fair":["Trade show","Feria","Messe"],
+"c.t.ong":["ongoing","en curso","laufend"],
+"c.p1":["multi-site infra, 4 branches","infra multisede, 4 sucursales","Multi-Standort-Infra, 4 Standorte"],
+"c.p3":["showcase website","sitio web del club","Vorstellungsseite"],
+"c.p4":["JavaScript web game","juego web JavaScript","JavaScript-Webspiel"],
+"c.s.doc":["documented","documentado","dokumentiert"],
+"c.s.int":["internal","interno","intern"],
+"c.s.on":["online","en línea","online"],
+"c.ping":[`Sending 5, 100-byte ICMP Echos to cyriak, timeout is 2 seconds:
+<span class="ok">!!!!!</span>
+Success rate is 100 percent (5/5)
+Contact: <span class="hl">cyriaklaunay@gmail.com</span>`,`Sending 5, 100-byte ICMP Echos to cyriak, timeout is 2 seconds:
+<span class="ok">!!!!!</span>
+Success rate is 100 percent (5/5)
+Contacto: <span class="hl">cyriaklaunay@gmail.com</span>`,`Sending 5, 100-byte ICMP Echos to cyriak, timeout is 2 seconds:
+<span class="ok">!!!!!</span>
+Success rate is 100 percent (5/5)
+Kontakt: <span class="hl">cyriaklaunay@gmail.com</span>`],
+"c.hint":["Type “help” for the list of commands.","Escribe «help» para ver los comandos.","Tippe „help“ für die Befehlsliste."],
+"c.unk":["% Unknown page: ","% Página desconocida: ","% Unbekannte Seite: "]
+};
+
+/* Compétences : noms traduits (clé = texte français) */
+const SKD={
+"Réseaux":["Networking","Redes","Netzwerke"],
+"Cybersécurité":["Cybersecurity","Ciberseguridad","Cybersicherheit"],
+"Systèmes & Cloud":["Systems & Cloud","Sistemas y Cloud","Systeme & Cloud"],
+"Outils & supervision":["Tools & monitoring","Herramientas y monitorización","Tools & Monitoring"],
+"Organisation & conformité":["Organization & compliance","Organización y cumplimiento","Organisation & Compliance"],
+"Scripting & dev":["Scripting & dev","Scripting y desarrollo","Scripting & Entwicklung"],
+"Architecture & segmentation":["Architecture & segmentation","Arquitectura y segmentación","Architektur & Segmentierung"],
+"Supervision SNMP":["SNMP monitoring","Monitorización SNMP","SNMP-Monitoring"],
+"Sensibilisation cyber":["Cyber awareness","Concienciación en ciberseguridad","Cyber-Awareness"],
+"Gestion des accès (IAM)":["Access management (IAM)","Gestión de accesos (IAM)","Zugriffsverwaltung (IAM)"],
+"Analyse de vulnérabilités":["Vulnerability analysis","Análisis de vulnerabilidades","Schwachstellenanalyse"],
+"Virtualisation (Proxmox, VMware)":["Virtualization (Proxmox, VMware)","Virtualización (Proxmox, VMware)","Virtualisierung (Proxmox, VMware)"],
+"Documentation & procédures":["Documentation & procedures","Documentación y procedimientos","Dokumentation & Prozesse"],
+"Sécurité opérationnelle":["Operational security","Seguridad operativa","Betriebssicherheit"],
+"Bonnes pratiques RGPD":["GDPR best practices","Buenas prácticas RGPD","DSGVO-Best-Practices"],
+"Suivi de projet":["Project tracking","Seguimiento de proyectos","Projektverfolgung"]
+};
+
+/* Français : texte déjà présent dans le HTML, complété par les clés propres au script */
+const FR={};
+document.querySelectorAll("[data-i]").forEach(el=>{if(!(el.dataset.i in FR))FR[el.dataset.i]=el.innerHTML});
+Object.assign(FR,{
+"n.accueil":"Accueil","n.apropos":"À propos","n.parcours":"Parcours","n.experiences":"Expériences","n.competences":"Compétences","n.projets":"Projets","n.lab":"Lab &amp; veille","n.contact":"Contact",
+"p.teal":"Turquoise","f.ph.name":"Votre nom","f.ph.mail":"votre@email.com","f.ph.msg":"Votre message…","p.blue":"Bleu","p.green":"Vert","p.amber":"Ambre","p.violet":"Violet",
+"s.ports":"ports","s.avg":"moy.",
+"cp":"Copier","cpd":"Copié","cps":"Sélectionné",
+"c.hello":"User Access Verification\nBienvenue sur la console. Tape « help » ou clique une commande.",
+"c.help":`Commandes disponibles :
+  whoami               profil en une ligne
+  show version         poste et formation
+  show ip int brief    domaines de compétences
+  show vlan brief      segmentation SportLudique
+  show cdp neighbors   expériences
+  show projects        projets
+  ping contact         me contacter
+  goto &lt;page&gt;         parcours, competences, projets, lab, contact
+  clear                effacer l'écran`,
+"c.who":`Cyriak Launay — agent de maintenance informatique chez <span class="hl">Soparco SAS</span>, BTS SIO option SISR.`,
+"c.ver":`Cyriak Launay — Portfolio IOS, Version 3.0
+Poste     : <span class="hl">Agent de maintenance informatique, Soparco SAS</span>
+Formation : BTS SIO option SISR, Lycée Fulbert (Chartres)`,
+"c.vlan":`VLAN  Name           Status
+----  -------------  ------
+<span class="dim">Segmentation par service sur les 4 agences SportLudique :</span>
+      Chartres · Orléans · Tours · Bourges
+      Routage inter-VLAN sur Cisco 9200L, filtrage Stormshield SN210
+<span class="dim">→ détail dans la documentation du projet (page Projets)</span>`,
+"c.t.now":"Poste actuel","c.t.int":"Stage","c.t.hack":"Hackathon","c.t.fair":"Salon pro","c.t.ong":"en cours",
+"c.p1":"infra multi-sites, 4 agences","c.p3":"site vitrine","c.p4":"jeu web JavaScript",
+"c.s.doc":"documenté","c.s.int":"interne","c.s.on":"en ligne",
+"c.ping":`Sending 5, 100-byte ICMP Echos to cyriak, timeout is 2 seconds:
+<span class="ok">!!!!!</span>
+Success rate is 100 percent (5/5)
+Contact : <span class="hl">cyriaklaunay@gmail.com</span>`,
+"c.hint":"Tape « help » pour la liste des commandes.",
+"c.unk":"% Page inconnue : "
+});
+
+let LANG="fr";
+const tr=k=>{const i=LANGS.indexOf(LANG);return(i>0&&D[k]&&D[k][i-1]!==undefined)?D[k][i-1]:FR[k]};
+const skn=n=>{const i=LANGS.indexOf(LANG);return(i>0&&SKD[n])?SKD[n][i-1]:n};
+
+/* ---------- Pages ---------- */
+const ORDER=["accueil","apropos","parcours","experiences","competences","projets","lab","contact"];
+const ICON={accueil:"~",apropos:"i",parcours:"»",experiences:"#",competences:"≡",projets:"▣",lab:"▤",contact:"@"};
+const views={};ORDER.forEach(k=>views[k]=document.getElementById("v-"+k));
+const tabs=document.getElementById("tabs");
+let CUR="accueil";
+
+function buildTabs(){
+  tabs.innerHTML=ORDER.map(k=>`<button class="tab" type="button" data-go="${k}"${k===CUR?' aria-current="page"':''}><span class="tab-ico">${ICON[k]}</span>${tr("n."+k)}</button>`).join("");
+}
+function buildPagers(){
+  ORDER.forEach((k,i)=>{
+    if(k==="accueil")return;
+    let d=views[k].querySelector(".pager");if(!d){d=document.createElement("div");d.className="pager";views[k].appendChild(d)}
+    const p=ORDER[i-1],n=ORDER[i+1];
+    d.innerHTML=(p?`<button type="button" data-go="${p}">← ${tr("n."+p)}</button>`:"<span></span>")+(n?`<button type="button" data-go="${n}">${tr("n."+n)} →</button>`:"<span></span>");
+  });
+}
+function show(k,noScroll){
+  if(!views[k])k="accueil";
+  CUR=k;
+  ORDER.forEach(x=>{views[x].hidden=x!==k});
+  tabs.querySelectorAll(".tab").forEach(b=>{if(b.dataset.go===k)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")});
+  const act=tabs.querySelector('[aria-current="page"]');if(act&&act.scrollIntoView)try{act.scrollIntoView({inline:"center",block:"nearest"})}catch(e){}
+  if(!noScroll)window.scrollTo({top:0});
+  try{history.replaceState(null,"","#"+k)}catch(e){}
+}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-go]");if(!t)return;
+  e.preventDefault();show(t.dataset.go);
+});
+addEventListener("hashchange",()=>show(location.hash.slice(1)));
+
+/* ---------- Compétences ---------- */
+const SKILLS=[
+ {m:"Réseaux",s:[["Architecture & segmentation",80],["TCP/IP",85],["DNS / DHCP",90],["VLAN (802.1Q)",90],["HSRP / LACP",75],["NAT / PAT",70],["LDAPS",65],["Proxy / reverse proxy",60],["Supervision SNMP",60]]},
+ {m:"Cybersécurité",s:[["BitLocker",80],["Firewall (Stormshield, pfSense)",75],["SIEM (Graylog)",75],["Sensibilisation cyber",75],["SSL/TLS (ADCS, Let's Encrypt)",70],["Antivirus ESET",70],["Gestion des accès (IAM)",65],["Analyse de vulnérabilités",55]]},
+ {m:"Systèmes & Cloud",s:[["Active Directory",85],["Windows Server",80],["Virtualisation (Proxmox, VMware)",80],["Linux (Debian, Ubuntu)",75],["Docker",65],["CI/CD (GitHub Actions)",55],["Ansible",50]]},
+ {m:"Outils & supervision",s:[["GLPI FusionInventory",80],["GitHub",75],["Wireshark",70],["Nmap",65],["OpenSSL",55]]},
+ {m:"Organisation & conformité",s:[["Documentation & procédures",85],["Sécurité opérationnelle",70],["Bonnes pratiques RGPD",70],["Suivi de projet",65]]},
+ {m:"Scripting & dev",s:[["PowerShell",65],["Bash",50],["SQL (MySQL)",40],["Python",35],["JavaScript",25],["PHP",20],["C#",15]]}
+];
+const col=v=>v>=80?"var(--up)":v>=60?"var(--cable)":"var(--warn)";
+const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function renderSkills(){
+  document.getElementById("chassis").innerHTML=SKILLS.map((mod,i)=>{
+    const avg=Math.round(mod.s.reduce((a,b)=>a+b[1],0)/mod.s.length);
+    return `<div class="card module"><div class="module-head"><h3>${esc(skn(mod.m))}</h3><span>Slot ${i+1} · ${mod.s.length} ${tr("s.ports")} · ${tr("s.avg")} ${avg} %</span></div>
+    <div class="ports" aria-hidden="true">${mod.s.map(s=>`<span class="port" style="--c:${col(s[1])}"></span>`).join("")}</div>
+    <ul class="rows">${mod.s.map((s,j)=>`<li style="--c:${col(s[1])}"><span class="if">Gi${i+1}/0/${j+1}</span><span class="nm">${esc(skn(s[0]))}<span class="bar2"><i style="width:${s[1]}%"></i></span></span><span class="pc">${s[1]} %</span></li>`).join("")}</ul></div>`;
+  }).join("");
+}
+
+/* ---------- Console ---------- */
+const out=document.getElementById("out"),inp=document.getElementById("cmd");
+const P='<span class="p">cyriak-launay#</span> ';
+const CMDS={
+ "help":()=>tr("c.help"),
+ "whoami":()=>tr("c.who"),
+ "show version":()=>tr("c.ver"),
+ "show ip int brief":()=>SKILLS.map(m=>{const a=Math.round(m.s.reduce((x,y)=>x+y[1],0)/m.s.length);return `${skn(m.m).padEnd(28)} <span class="ok">up</span>   ${tr("s.avg")} ${a} %`}).join("\n"),
+ "show vlan brief":()=>tr("c.vlan"),
+ "show cdp neighbors":()=>{
+   const rows=[["Soparco SAS","c.t.now","c.t.ong"],["XO XLS Optronic","c.t.int","2026"],["XtremPro","c.t.int","2025"],["Nuit de l'Info","c.t.hack","2025"],["IT Partners","c.t.fair","2025"]];
+   return "Device ID            Type          Year\n"+rows.map(r=>`${r[0].padEnd(21)}${tr(r[1]).padEnd(14)}${r[2].startsWith("c.")?tr(r[2]):r[2]}`).join("\n");
+ },
+ "show projects":()=>`1  SportLudique     ${tr("c.p1").padEnd(32)}<span class="ok">${tr("c.s.doc")}</span>
+2  Scraping B2B     PoC Python / Selenium            <span class="dim">${tr("c.s.int")}</span>
+3  FC Fulbert       ${tr("c.p3").padEnd(32)}<span class="ok">${tr("c.s.on")}</span>
+4  Cluedo           ${tr("c.p4").padEnd(32)}<span class="ok">${tr("c.s.on")}</span>`,
+ "ping contact":()=>tr("c.ping")
+};
+const alias={"show ip interface brief":"show ip int brief","sh ip int br":"show ip int brief","sh ver":"show version","sh vlan br":"show vlan brief","sh cdp nei":"show cdp neighbors","show cdp neighbors detail":"show cdp neighbors","ping recruteur":"ping contact","ping alternance":"ping contact","?":"help"};
+const PAGES={accueil:"accueil",home:"accueil",inicio:"accueil",start:"accueil",apropos:"apropos",about:"apropos",sobre:"apropos",uber:"apropos",parcours:"parcours",journey:"parcours",trayectoria:"parcours",werdegang:"parcours",experiences:"experiences",experience:"experiences",experiencia:"experiences",erfahrung:"experiences",competences:"competences",skills:"competences",competencias:"competences",kompetenzen:"competences",projets:"projets",projects:"projets",proyectos:"projets",projekte:"projets",lab:"lab",veille:"lab",contact:"contact",contacto:"contact",kontakt:"contact"};
+function run(raw){
+  const c=raw.trim().toLowerCase();if(!c)return;
+  if(IDLE){IDLE.remove();IDLE=null}
+  if(c==="clear"){out.innerHTML="";return}
+  let res;
+  if(c.startsWith("goto ")||c.startsWith("cd ")){
+    const t=c.split(" ")[1].normalize("NFD").replace(/[̀-ͯ]/g,"");
+    if(PAGES[t]){res=`<span class="ok">→ ${esc(t)}</span>`;setTimeout(()=>show(PAGES[t]),250)}
+    else res=`<span class="bad">${tr("c.unk")}${esc(t)}</span>`;
+  } else {
+    const k=alias[c]||c;
+    res=CMDS[k]?CMDS[k]():`<span class="bad">% Invalid input detected at '^' marker.</span>\n<span class="dim">${tr("c.hint")}</span>`;
+  }
+  out.innerHTML+=`\n${P}${esc(raw.trim())}\n${res}\n`;
+  out.scrollTop=out.scrollHeight;
+}
+let DEMO=0,IDLE=null;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+async function typeCmd(cmd,token){
+  const wrap=document.createElement("span");
+  wrap.innerHTML="\n"+P;
+  const typed=document.createElement("span"),caret=document.createElement("span");
+  caret.className="caret";caret.textContent="▋";
+  wrap.append(typed,caret);out.appendChild(wrap);
+  for(const ch of cmd){
+    if(token!==DEMO){wrap.remove();return false}
+    typed.textContent+=ch;out.scrollTop=out.scrollHeight;
+    await sleep(40+Math.random()*55);
+  }
+  await sleep(320);
+  if(token!==DEMO){wrap.remove();return false}
+  caret.remove();
+  wrap.insertAdjacentHTML("beforeend","\n"+CMDS[cmd]()+"\n");
+  out.scrollTop=out.scrollHeight;
+  await sleep(700);
+  return token===DEMO;
+}
+async function initConsole(){
+  const token=++DEMO;IDLE=null;
+  out.innerHTML=`<span class="dim">${tr("c.hello")}</span>\n`;
+  const seq=["show version","show ip int brief","ping contact"];
+  if(reduceMotion){seq.forEach(run);out.scrollTop=0;return}
+  await sleep(500);
+  for(const c of seq){if(!(await typeCmd(c,token)))return}
+  if(token===DEMO){IDLE=document.createElement("span");IDLE.innerHTML="\n"+P+'<span class="caret">▋</span>';out.appendChild(IDLE);out.scrollTop=out.scrollHeight}
+}
+inp.addEventListener("focus",()=>{DEMO++});
+document.getElementById("chips").addEventListener("click",()=>{DEMO++},true);
+document.getElementById("termForm").addEventListener("submit",e=>{e.preventDefault();run(inp.value);inp.value=""});
+document.getElementById("chips").addEventListener("click",e=>{if(e.target.tagName==="BUTTON")run(e.target.textContent)});
+
+/* ---------- Copie email ---------- */
+document.getElementById("copyMail").addEventListener("click",function(){
+  const b=this,t=document.getElementById("mail").textContent;
+  const done=()=>{b.textContent=tr("cpd");setTimeout(()=>b.textContent=tr("cp"),1600)};
+  function sel(){const r=document.createRange();r.selectNodeContents(document.getElementById("mail"));const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent=tr("cps")}
+  try{navigator.clipboard.writeText(t).then(done).catch(sel)}catch(e){sel()}
+});
+
+
+/* ---------- Formulaire de contact ---------- */
+const cform=document.getElementById("cform"),sent=document.getElementById("sent"),ferr=document.getElementById("ferr"),draft=document.getElementById("draft");
+cform.addEventListener("submit",e=>{
+  e.preventDefault();
+  const n=document.getElementById("f-name").value.trim(),m=document.getElementById("f-mail").value.trim(),g=document.getElementById("f-msg").value.trim();
+  if(!n||!m||!g||!/^\S+@\S+\.\S+$/.test(m)){ferr.hidden=false;sent.hidden=true;return}
+  ferr.hidden=true;
+  const body=g+"\n\n— "+n+" <"+m+">";
+  draft.textContent=body;
+  document.getElementById("mailto").href="mailto:cyriaklaunay@gmail.com?subject="+encodeURIComponent("Contact portfolio — "+n)+"&body="+encodeURIComponent(body);
+  sent.hidden=false;
+});
+document.getElementById("copyDraft").addEventListener("click",function(){
+  const b=this,t=draft.textContent;
+  const done=()=>{b.textContent=tr("cpd");setTimeout(()=>b.textContent=tr("ok.copy"),1600)};
+  function sel(){const r=document.createRange();r.selectNodeContents(draft);const x=getSelection();x.removeAllRanges();x.addRange(r);b.textContent=tr("cps")}
+  try{navigator.clipboard.writeText(t).then(done).catch(sel)}catch(e){sel()}
+});
+
+/* ---------- Langue ---------- */
+const langSel=document.getElementById("lang");
+function applyLang(l){
+  if(!LANGS.includes(l))l="fr";
+  LANG=l;document.documentElement.lang=l;langSel.value=l;
+  document.querySelectorAll("[data-i]").forEach(el=>{const v=tr(el.dataset.i);if(v!==undefined)el.innerHTML=v});
+  document.querySelectorAll("[data-ph]").forEach(el=>{el.placeholder=tr(el.dataset.ph)});
+  buildTabs();buildPagers();renderSkills();initConsole();buildSwatches();
+  try{localStorage.setItem("lang",l)}catch(e){}
+}
+langSel.addEventListener("change",()=>applyLang(langSel.value));
+
+/* ---------- Thème : mode + couleur ---------- */
+const PAL={
+ teal:{
+  d:{a:"#2ee6c8",on:"#03201c",glow:"rgba(46,230,200,.26)",g2:"rgba(20,200,150,.18)",bg:"#010807",bg2:"#03211d",panel:"#071513",panel2:"#0b1f1c",line:"#143832"},
+  l:{a:"#0b8f7e",on:"#ffffff",glow:"rgba(11,143,126,.26)",g2:"rgba(20,170,130,.20)",bg:"#e0f1ed",bg2:"#cde8e1"}},
+ blue:{
+  d:{a:"#5aa9ff",on:"#04152e",glow:"rgba(90,169,255,.25)",g2:"rgba(110,90,255,.18)",bg:"#02050d",bg2:"#06122e",panel:"#08101f",panel2:"#0c1830",line:"#16284a"},
+  l:{a:"#1d5fd0",on:"#ffffff",glow:"rgba(29,95,208,.24)",g2:"rgba(99,102,241,.19)",bg:"#e3eaf8",bg2:"#d1dcf3"}},
+ green:{
+  d:{a:"#4ade80",on:"#04200f",glow:"rgba(74,222,128,.22)",g2:"rgba(45,212,191,.16)",bg:"#020a05",bg2:"#05190c",panel:"#08140d",panel2:"#0c1d13",line:"#173323"},
+  l:{a:"#15803d",on:"#ffffff",glow:"rgba(21,128,61,.22)",g2:"rgba(20,160,140,.18)",bg:"#e4f2e6",bg2:"#d3e8dc"}},
+ amber:{
+  d:{a:"#fbbf24",on:"#241a02",glow:"rgba(251,191,36,.22)",g2:"rgba(244,114,60,.18)",bg:"#0a0703",bg2:"#1c1204",panel:"#130e07",panel2:"#1c150b",line:"#34260f"},
+  l:{a:"#b45309",on:"#ffffff",glow:"rgba(180,83,9,.22)",g2:"rgba(234,120,40,.18)",bg:"#f5ecdc",bg2:"#efdcc3"}},
+ violet:{
+  d:{a:"#a78bfa",on:"#150b3a",glow:"rgba(167,139,250,.25)",g2:"rgba(236,72,153,.16)",bg:"#07040f",bg2:"#150a2c",panel:"#0e0a1a",panel2:"#151026",line:"#2a1f45"},
+  l:{a:"#6d28d9",on:"#ffffff",glow:"rgba(109,40,217,.22)",g2:"rgba(219,60,150,.16)",bg:"#ece6f7",bg2:"#ddd1f0"}}
+};
+let MODE="auto",PALK="teal";
+const root=document.documentElement;
+const sysLight=()=>matchMedia("(prefers-color-scheme: light)").matches;
+const effective=()=>MODE==="auto"?(sysLight()?"l":"d"):(MODE==="light"?"l":"d");
+function applyTheme(){
+  if(MODE==="auto")root.removeAttribute("data-theme");else root.setAttribute("data-theme",MODE);
+  const m=effective(),p=PAL[PALK][m],st=root.style;
+  const set={"--accent":p.a,"--on-accent":p.on,"--glow":p.glow,"--glow2":p.g2,"--bg":p.bg,"--bg2":p.bg2,"--t-acc":PAL[PALK].d.a};
+  if(m==="d"){set["--panel"]=p.panel;set["--panel-2"]=p.panel2;set["--line"]=p.line}
+  else["--panel","--panel-2","--line"].forEach(k=>st.removeProperty(k));
+  Object.keys(set).forEach(k=>st.setProperty(k,set[k]));
+  document.querySelectorAll("#modeSeg button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.mode===MODE)));
+  document.querySelectorAll("#swatches button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pal===PALK)));
+  try{localStorage.setItem("mode",MODE);localStorage.setItem("pal",PALK)}catch(e){}
+}
+function buildSwatches(){
+  document.getElementById("swatches").innerHTML=Object.keys(PAL).map(k=>`<button type="button" data-pal="${k}" aria-label="${tr("p."+k)}" title="${tr("p."+k)}" aria-pressed="${k===PALK}" style="background:${PAL[k].d.a}"></button>`).join("");
+}
+document.getElementById("modeSeg").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;MODE=b.dataset.mode;applyTheme()});
+document.getElementById("swatches").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;PALK=b.dataset.pal;applyTheme()});
+matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{if(MODE==="auto")applyTheme()});
+const menu=document.getElementById("themeMenu"),tbtn=document.getElementById("themeBtn");
+tbtn.addEventListener("click",e=>{e.stopPropagation();menu.hidden=!menu.hidden;tbtn.setAttribute("aria-expanded",String(!menu.hidden))});
+document.addEventListener("click",e=>{if(!menu.hidden&&!menu.contains(e.target)){menu.hidden=true;tbtn.setAttribute("aria-expanded","false")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!menu.hidden){menu.hidden=true;tbtn.setAttribute("aria-expanded","false");tbtn.focus()}});
+
+/* ---------- Photo : colle ici une image en data URI pour remplacer le monogramme ---------- */
+const PHOTO="";
+if(PHOTO)document.querySelectorAll(".avatar").forEach(a=>{a.innerHTML=`<img alt="Cyriak Launay" src="${PHOTO}">`;a.removeAttribute("aria-hidden")});
+
+/* ---------- Démarrage ---------- */
+let saved={};
+try{saved={lang:localStorage.getItem("lang"),mode:localStorage.getItem("mode"),pal:localStorage.getItem("pal")}}catch(e){}
+if(saved.mode&&["auto","light","dark"].includes(saved.mode))MODE=saved.mode;
+if(saved.pal&&PAL[saved.pal])PALK=saved.pal;
+let startLang=saved.lang;
+if(!startLang){const n=(navigator.language||"fr").slice(0,2).toLowerCase();startLang=LANGS.includes(n)?n:"fr"}
+buildSwatches();applyTheme();
+show(location.hash.slice(1)||"accueil",true);
+applyLang(startLang);
+</script>
+</body>
+</html>
