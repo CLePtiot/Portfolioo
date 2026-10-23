@@ -72,6 +72,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .who b{display:block;font-family:var(--f-display);font-size:34px;text-transform:uppercase;line-height:1;font-weight:800}
 .who span.r{color:var(--muted);font-family:var(--f-mono);font-size:13px}
 
+.xl{color:var(--cable);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--cable) 45%,transparent);text-underline-offset:3px}
+.xl:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.nb h3 .xl{color:inherit;text-decoration-color:var(--accent);text-decoration-thickness:2px}
+.nb h3 .xl:hover{color:var(--accent)}
+
 /* Menus thème et langue */
 .tools{position:relative}
 .pill-btn{display:inline-flex;align-items:center;gap:8px}
@@ -353,7 +358,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <div class="cta">
         <a class="btn primary" href="#projets" data-go="projets"><span data-i="h.b1">Voir mes projets →</span></a>
         <a class="btn" href="#contact" data-go="contact"><span data-i="h.b2">Me contacter</span></a>
-        <a class="btn" href="https://cyriaklaunay.vercel.app/cv.html" target="_blank" rel="noopener"><span data-i="h.b3">Mon CV ↗</span></a>
+        <a class="btn" href="cv.html" target="_blank" rel="noopener"><span data-i="h.b3">Mon CV ↗</span></a>
       </div>
       <div class="facts">
         <div><b>5+</b><span data-i="h.f1">ans de formation</span></div>
@@ -403,12 +408,12 @@ Systemes_Cloud   <span class="ok">up</span>       <span class="ok">up</span>
     <div class="card bio">
       <div class="who"><span class="avatar lg" id="av2" aria-hidden="true">CL</span><div><b>Cyriak Launay</b><span class="r" data-i="job">Agent de maintenance informatique</span></div></div>
       <p><span data-i="a.p1">Passionné par l'informatique depuis toujours, j'ai choisi l'administration systèmes et réseaux pour comprendre et maîtriser les infrastructures qui font tourner le monde numérique.</span></p>
-      <p><span data-i="a.p2">Agent de maintenance informatique chez Soparco SAS, je mets en pratique ce que j'ai appris en BTS SIO option SISR : serveurs HP ProLiant, switchs Cisco, pare-feu Stormshield, virtualisation et gestion de parc.</span></p>
+      <p><span data-i="a.p2">Agent de maintenance informatique chez <a class="xl" href="https://www.soparco.com/" target="_blank" rel="noopener">Soparco SAS</a>, je mets en pratique ce que j'ai appris en BTS SIO option SISR : serveurs HP ProLiant, switchs Cisco, pare-feu Stormshield, virtualisation et gestion de parc.</span></p>
       <p><span data-i="a.p3">Curieux et rigoureux, j'aime les défis techniques et je documente ce que je construis pour que d'autres puissent le reprendre.</span></p>
     </div>
     <div class="goals">
-      <div class="card goal"><span class="tag t-up"><span data-i="g.t1">poste actuel</span></span><div><h3><span data-i="job">Agent de maintenance informatique</span></h3><p>Soparco SAS.</p></div></div>
-      <div class="card goal"><span class="tag t-cable"><span data-i="g.t2">formation</span></span><div><h3>BTS SIO option SISR</h3><p>Lycée Fulbert, Chartres, 2024 – 2026.</p></div></div>
+      <div class="card goal"><span class="tag t-up"><span data-i="g.t1">poste actuel</span></span><div><h3><span data-i="job">Agent de maintenance informatique</span></h3><p><a class="xl" href="https://www.soparco.com/" target="_blank" rel="noopener">Soparco SAS</a>.</p></div></div>
+      <div class="card goal"><span class="tag t-cable"><span data-i="g.t2">formation</span></span><div><h3>BTS SIO option SISR</h3><p><a class="xl" href="https://www.onisep.fr/ressources/structures-enseignement/centre-val-de-loire/eure-et-loir/lycee-fulbert" target="_blank" rel="noopener">Lycée Fulbert</a>, Chartres, 2024 – 2026.</p></div></div>
       <div class="card goal"><span class="tag t-warn"><span data-i="g.t3">objectif</span></span><div><h3><span data-i="g.h3">Approfondir réseaux et sécurité</span></h3><p><span data-i="g.p3">En production comme en lab.</span></p></div></div>
     </div>
   </div>
@@ -422,19 +427,19 @@ Systemes_Cloud   <span class="ok">up</span>       <span class="ok">up</span>
     <div class="hop"><div class="n">1</div><div class="when">2021<small>jean-monnet.la-loupe</small></div>
       <div class="body"><h3><span data-i="pc.h1">Brevet des collèges</span></h3><p class="place">Collège Jean Monnet, La Loupe</p></div></div>
     <div class="hop"><div class="n">2</div><div class="when">2021 – 2024<small>sully.nogent-le-rotrou</small></div>
-      <div class="body"><h3><span data-i="pc.h2">Bac Pro Systèmes Numériques</span></h3><p class="place">Lycée des Métiers Sully, Nogent-le-Rotrou</p>
+      <div class="body"><h3><span data-i="pc.h2">Bac Pro Systèmes Numériques</span></h3><p class="place"><a class="xl" href="https://www.onisep.fr/ressources/structures-enseignement/centre-val-de-loire/eure-et-loir/lycee-polyvalent-sully" target="_blank" rel="noopener">Lycée des Métiers Sully</a>, Nogent-le-Rotrou</p>
         <p><span data-i="pc.d2">Trois années de formation technique : premières bases en virtualisation, téléphonie IP, routage et Windows Server.</span></p>
         <ul class="tags"><li>Proxmox VE</li><li>VoIP</li><li>Routeurs</li><li>Windows Server</li></ul></div></div>
-    <div class="hop"><div class="n">3</div><div class="when">2024 – 2026<small>fulbert.chartres</small></div>
-      <div class="body"><h3>BTS SIO option SISR</h3><p class="place">Lycée Fulbert, Chartres</p>
-        <p><span data-i="pc.d3">Conception de l'infrastructure SportLudique, interconnexion de 4 agences, sur serveurs HP ProLiant DL380, switchs Cisco 2960 / 9200L et pare-feu Stormshield SN210.</span></p>
-        <ul class="tags"><li>Cisco</li><li>Stormshield</li><li>Windows Server</li><li>GLPI</li><li>Docker</li><li>Proxmox VE</li><li>OPNsense</li></ul></div></div>
-    <div class="hop"><div class="n">4</div><div class="when">2026<small>xo-xls-optronic.le-coudray</small></div>
-      <div class="body"><h3><span data-i="pc.h4">Stage chez XO XLS Optronic</span></h3><p class="place">Le Coudray</p>
+    <div class="hop"><div class="n">3</div><div class="when">2026<small>xo-xls-optronic.le-coudray</small></div>
+      <div class="body"><h3><span data-i="pc.h4">Stage chez XO XLS Optronic</span></h3><p class="place"><a class="xl" href="https://xls-optronic.com/" target="_blank" rel="noopener">XO XLS Optronic</a>, Le Coudray</p>
         <p><span data-i="pc.d4">Audit du parc informatique, maintenance des postes et serveurs, téléphonie IP, installation de fibre optique et développement web.</span></p>
         <ul class="tags"><li><span data-i="tg.parc">Audit de parc</span></li><li><span data-i="tg.maint">Maintenance</span></li><li>Windows Server</li><li><span data-i="tg.voipf">VoIP &amp; fibre</span></li><li>Web</li></ul></div></div>
+    <div class="hop"><div class="n">4</div><div class="when">2024 – 2026<small>fulbert.chartres</small></div>
+      <div class="body"><h3>BTS SIO option SISR</h3><p class="place"><a class="xl" href="https://www.onisep.fr/ressources/structures-enseignement/centre-val-de-loire/eure-et-loir/lycee-fulbert" target="_blank" rel="noopener">Lycée Fulbert</a>, Chartres</p>
+        <p><span data-i="pc.d3">Conception de l'infrastructure SportLudique, interconnexion de 4 agences, sur serveurs HP ProLiant DL380, switchs Cisco 2960 / 9200L et pare-feu Stormshield SN210.</span></p>
+        <ul class="tags"><li>Cisco</li><li>Stormshield</li><li>Windows Server</li><li>GLPI</li><li>Docker</li><li>Proxmox VE</li><li>OPNsense</li></ul></div></div>
     <div class="hop now"><div class="n">5</div><div class="when"><span data-i="when.now">Actuellement</span><small>soparco-sas</small></div>
-      <div class="body"><h3><span data-i="job">Agent de maintenance informatique</span><span class="now-tag"><span data-i="now">POSTE ACTUEL</span></span></h3><p class="place">Soparco SAS</p></div></div>
+      <div class="body"><h3><span data-i="job">Agent de maintenance informatique</span><span class="now-tag"><span data-i="now">POSTE ACTUEL</span></span></h3><p class="place"><a class="xl" href="https://www.soparco.com/" target="_blank" rel="noopener">Soparco SAS</a></p></div></div>
   </div>
 </section>
 
@@ -444,11 +449,11 @@ Systemes_Cloud   <span class="ok">up</span>       <span class="ok">up</span>
   <div class="neigh">
     <article class="card nb wide">
       <div class="nb-top"><span class="kind"><span data-i="now">POSTE ACTUEL</span></span><span><span data-i="ong">En cours</span></span></div>
-      <h3>Soparco SAS</h3><p class="where"><span data-i="job">Agent de maintenance informatique</span></p>
+      <h3><a class="xl" href="https://www.soparco.com/" target="_blank" rel="noopener">Soparco SAS</a></h3><p class="where"><span data-i="job">Agent de maintenance informatique</span></p>
     </article>
     <article class="card nb">
       <div class="nb-top"><span class="kind"><span data-i="e.k1">STAGE</span></span><span>2026</span></div>
-      <h3>XO XLS Optronic</h3><p class="where">Le Coudray</p>
+      <h3><a class="xl" href="https://xls-optronic.com/" target="_blank" rel="noopener">XO XLS Optronic</a></h3><p class="where">Le Coudray</p>
       <p><span data-i="e.d1">Audit de parc, maintenance postes et serveurs, téléphonie IP, fibre optique et développement de sites web.</span></p>
       <ul class="tags"><li><span data-i="tg.audit">Audit &amp; maint.</span></li><li><span data-i="tg.ip">Téléphonie IP</span></li><li><span data-i="tg.fiber">Fibre optique</span></li><li><span data-i="tg.web">Dév. web</span></li></ul>
     </article>
@@ -466,7 +471,7 @@ Systemes_Cloud   <span class="ok">up</span>       <span class="ok">up</span>
     </article>
     <article class="card nb">
       <div class="nb-top"><span class="kind"><span data-i="e.k4">SALON PRO</span></span><span>2025</span></div>
-      <h3>IT Partners</h3><p class="where">Accor Arena, Paris</p>
+      <h3><a class="xl" href="https://www.itpartners.fr/" target="_blank" rel="noopener">IT Partners</a></h3><p class="where">Accor Arena, Paris</p>
       <p><span data-i="e.d4">Échanges avec constructeurs, éditeurs et grossistes. Veille sur les solutions d'infrastructure, de cybersécurité et de cloud.</span></p>
       <ul class="tags"><li>Networking</li><li><span data-i="tg.veille">Veille</span></li><li>Solutions IT</li><li>B2B</li></ul>
     </article>
@@ -598,8 +603,8 @@ Systemes_Cloud   <span class="ok">up</span>       <span class="ok">up</span>
         </div></div>
       <div><p class="side-t" data-i="s.cv">Mon CV</p>
         <div class="card cvbox">
-          <a class="cvbtn" href="https://cyriaklaunay.vercel.app/cv.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span data-i="cv.view">Visualiser</span></a>
-          <a class="cvbtn" href="https://cyriaklaunay.vercel.app/cv.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg><span data-i="cv.dl">Télécharger</span></a>
+          <a class="cvbtn" href="cv.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span data-i="cv.view">Visualiser</span></a>
+          <a class="cvbtn" href="cv.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 20h16"/></svg><span data-i="cv.dl">Télécharger</span></a>
         </div></div>
       <div><p class="side-t" data-i="s.status">Statut</p>
         <div class="card stat"><span class="led"></span><span data-i="h.pill">En poste · Soparco SAS</span></div></div>
@@ -647,7 +652,7 @@ const D={
 "q.comp":["Networks, security, systems.","Redes, seguridad, sistemas.","Netzwerke, Sicherheit, Systeme."],
 "q.proj":["SportLudique and other work.","SportLudique y otras realizaciones.","SportLudique und weitere Arbeiten."],
 "a.p1":["I have been passionate about computing for as long as I can remember. I chose systems and network administration to understand and master the infrastructures that keep the digital world running.","Me apasiona la informática desde siempre. Elegí la administración de sistemas y redes para comprender y dominar las infraestructuras que hacen funcionar el mundo digital.","Die Informatik begeistert mich schon immer. Ich habe mich für Systemadministration und Netzwerke entschieden, um die Infrastrukturen zu verstehen und zu beherrschen, die die digitale Welt am Laufen halten."],
-"a.p2":["As an IT maintenance technician at Soparco SAS, I put into practice what I learned in my BTS SIO (SISR option): HP ProLiant servers, Cisco switches, Stormshield firewalls, virtualization and asset management.","Como técnico de mantenimiento informático en Soparco SAS, pongo en práctica lo aprendido en el BTS SIO opción SISR: servidores HP ProLiant, switches Cisco, cortafuegos Stormshield, virtualización y gestión de parque.","Als IT-Wartungstechniker bei Soparco SAS wende ich an, was ich im BTS SIO (Schwerpunkt SISR) gelernt habe: HP-ProLiant-Server, Cisco-Switches, Stormshield-Firewalls, Virtualisierung und Bestandsverwaltung."],
+"a.p2":["As an IT maintenance technician at <a class='xl' href='https://www.soparco.com/' target='_blank' rel='noopener'>Soparco SAS</a>, I put into practice what I learned in my BTS SIO (SISR option): HP ProLiant servers, Cisco switches, Stormshield firewalls, virtualization and asset management.","Como técnico de mantenimiento informático en <a class='xl' href='https://www.soparco.com/' target='_blank' rel='noopener'>Soparco SAS</a>, pongo en práctica lo aprendido en el BTS SIO opción SISR: servidores HP ProLiant, switches Cisco, cortafuegos Stormshield, virtualización y gestión de parque.","Als IT-Wartungstechniker bei <a class='xl' href='https://www.soparco.com/' target='_blank' rel='noopener'>Soparco SAS</a> wende ich an, was ich im BTS SIO (Schwerpunkt SISR) gelernt habe: HP-ProLiant-Server, Cisco-Switches, Stormshield-Firewalls, Virtualisierung und Bestandsverwaltung."],
 "a.p3":["Curious and rigorous, I enjoy technical challenges and I document what I build so that others can pick it up.","Curioso y riguroso, me gustan los retos técnicos y documento lo que construyo para que otros puedan retomarlo.","Neugierig und gewissenhaft: Ich mag technische Herausforderungen und dokumentiere, was ich baue, damit andere es übernehmen können."],
 "g.t1":["current job","puesto actual","aktuelle Stelle"],
 "g.t2":["education","formación","Ausbildung"],
